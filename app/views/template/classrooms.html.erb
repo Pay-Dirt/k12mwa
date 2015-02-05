@@ -1,12 +1,14 @@
-<div>Aash
-	<ul>
-		<li ng-repeat="classroom in classrooms">{{classroom.classroom_number}}
-			<button ng-click="addSection(classroom.id)">+</button>
-			<button ng-click="removeSection(classroom.id)">-</button>
-			<div>
-			<ul><li ng-repeat="section in sections  | filter: {classroom_id: classroom.id}">{{section.section}}</li></ul>
-		</div>
-		</li>
-		
-	</ul>
+<div class="container">
+	<div>
+	<input type="text" ng-model="newClassroom" placeholder="Add new classroom" />
+	<button ng-click="addClassroom(newClassroom)" class="btn btn-primary">Add classroom</button>
+	<br />
+	<div class="col-md-4" ng-repeat="classroom in classrooms">
+			<h3>{{classroom.classroom_number}}</h3>
+			<button ng-click="addSection(classroom.id)" class="btn btn-success">+</button>
+			<button ng-click="removeSection(classroom.id)" class="btn btn-danger">-</button>
+			<br />
+			<button ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" class="btn btn-default">{{section.section}}</button>
+	</div>
+</div>
 </div>
