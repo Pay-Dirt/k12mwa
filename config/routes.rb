@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 get 'template/classrooms', to: 'template#classrooms'
 root 'schools#index'  
 resources :schools, except: [:destroy] do
+  
+    resources :sections, only: [:index]
     resources :classrooms, only: [:index,:show,:destroy,:create] do
       resources :sections, only: [:index,:show,:create,:destroy]
     end

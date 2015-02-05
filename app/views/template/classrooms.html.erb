@@ -1,6 +1,12 @@
 <div>Aash
 	<ul>
-		<li ng-repeat="classroom in classrooms">{{classroom}}</li>
+		<li ng-repeat="classroom in classrooms">{{classroom.classroom_number}}
+			<button ng-click="addSection(classroom.id)">+</button>
+			<button ng-click="removeSection(classroom.id)">-</button>
+			<div>
+			<ul><li ng-repeat="section in sections  | filter: {classroom_id: classroom.id}">{{section.section}}</li></ul>
+		</div>
+		</li>
 		
 	</ul>
 </div>

@@ -1,2 +1,50 @@
 class SectionsController < ApplicationController
+  protect_from_forgery :except => :all 
+  
+  before_action :set_classroom, only: [:create,:destroy]
+  
+  def index
+    if params[:classroom_id]
+      @sections = School.find(params[:school_id]).classrooms.find(params[:classroom_id]).sections.order(section: :asc).all
+      render json: @sections
+    else
+      @sections = Section.order(section: :asc).all
+      render json: @sections
+    end
+  end
+  
+  #this will add a new section to the classroom upon which it is called
+  def create
+    last_section = last_section_find.section
+    new_section = (last_section[0].ord + 1).chr
+    @section = @classroom.sections.new(section: new_section)
+    if @section.save
+      render json: @section
+    else
+      render json: '{"error":"unable to create section"}'
+    end
+  end
+  
+  #this will remove the last section added in the particular classroom
+  def destroy
+    last_section = last_section_find
+    if last_section.destroy
+      render json: last_section
+    else
+      render json: '{"success":"no"}'
+    end
+    
+  end
+  
+  
+  private
+  def set_classroom
+    @classroom = School.find(params[:school_id]).classrooms.find(params[:classroom_id])
+  end
+  
+  #this function returns the hash of the last section added
+  def last_section_find
+    var_last_section = @classroom.sections.order(section: :desc).first
+  end
+    
 end
