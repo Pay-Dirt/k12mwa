@@ -34,7 +34,7 @@ var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',['$sc
 		var url = "classrooms/"+classroom+"/sections/1";
 		$http.delete(url).success(function(data){
 			//this will remove the section from the model of angular
-			console.log(data.success);
+			//console.log(data.success);
 			if(data.success == "no"){
 				alert("Can't delete");}
 			else{

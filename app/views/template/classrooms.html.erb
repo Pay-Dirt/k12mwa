@@ -3,12 +3,15 @@
 	<input type="text" ng-model="newClassroom" placeholder="Add new classroom" />
 	<button ng-click="addClassroom(newClassroom)" class="btn btn-primary">Add classroom</button>
 	<br />
-	<div class="col-md-4" ng-repeat="classroom in classrooms">
+	<div class="col-md-3" ng-repeat="classroom in classrooms">
 			<h3>{{classroom.classroom_number}}</h3>
+			<div class="row">
 			<button ng-click="addSection(classroom.id)" class="btn btn-success">+</button>
 			<button ng-click="removeSection(classroom.id)" class="btn btn-danger">-</button>
-			<br />
-			<button ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" class="btn btn-default">{{section.section}}</button>
+			</div>
+			<div class="row">
+						<button ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" class="btn btn-default">{{section.section}}</button>
+			</div>
 	</div>
 </div>
 </div>
