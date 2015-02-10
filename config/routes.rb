@@ -1,10 +1,31 @@
 Rails.application.routes.draw do
 
+  resources :sub_subjects
+
+  resources :main_subjects
+
+  resources :default_sub_subjects
+
+  resources :default_main_subjects
+
+resources :default_classrooms, only: [:index]
+
+#custom template start here
 get 'template/classrooms', to: 'template#classrooms'
+get 'template/teacher', to: 'template#teacher'
+#custom template end here
+
 root 'schools#index'  
+
 resources :schools, except: [:destroy] do
+    resources :teachers
+    resources :sections, only: [:index]
+    
     resources :classrooms, only: [:index,:show,:destroy,:create] do
-      resources :sections, only: [:index,:show,:create,:destroy]
+      resources :sections, only: [:index,:show,:create,:destroy] do
+        #to display teacher of that class
+        resources :teachers, only: [:index]
+      end
     end
   end
 

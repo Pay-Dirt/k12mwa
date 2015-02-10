@@ -1,0 +1,2 @@
+class SubSubjectsController < ApplicationController
+end
