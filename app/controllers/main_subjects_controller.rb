@@ -1,0 +1,2 @@
+class MainSubjectsController < ApplicationController
+end

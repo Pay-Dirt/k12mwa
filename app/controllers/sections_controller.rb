@@ -25,7 +25,7 @@ class SectionsController < ApplicationController
         render json: '{"error":"unable to create section"}'
       end
     else
-        render json: '{"error":"Can only create uptp 10 sections"}'      
+        render json: '{"success":"no","display":"yes","error":"Can only create upto 10 sections"}'      
     end
     
   end
