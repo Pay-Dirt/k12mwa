@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210101243) do
+ActiveRecord::Schema.define(version: 20150212043710) do
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "classroom_number"
@@ -21,6 +21,25 @@ ActiveRecord::Schema.define(version: 20150210101243) do
   end
 
   add_index "classrooms", ["school_id"], name: "index_classrooms_on_school_id"
+
+  create_table "course_combinations", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "main_subject_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "course_combinations", ["course_id"], name: "index_course_combinations_on_course_id"
+  add_index "course_combinations", ["main_subject_id"], name: "index_course_combinations_on_main_subject_id"
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "classroom_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "courses", ["classroom_id"], name: "index_courses_on_classroom_id"
 
   create_table "default_classrooms", force: :cascade do |t|
     t.string   "classroom_name"
@@ -45,6 +64,16 @@ ActiveRecord::Schema.define(version: 20150210101243) do
   end
 
   add_index "default_sub_subjects", ["default_main_subject_id"], name: "index_default_sub_subjects_on_default_main_subject_id"
+
+  create_table "lectures", force: :cascade do |t|
+    t.integer  "teacher_id"
+    t.integer  "sub_subject_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "lectures", ["sub_subject_id"], name: "index_lectures_on_sub_subject_id"
+  add_index "lectures", ["teacher_id"], name: "index_lectures_on_teacher_id"
 
   create_table "main_subjects", force: :cascade do |t|
     t.string   "name"
@@ -93,5 +122,15 @@ ActiveRecord::Schema.define(version: 20150210101243) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
+
+  create_table "teachings", force: :cascade do |t|
+    t.integer  "lecture_id"
+    t.integer  "section_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "teachings", ["lecture_id"], name: "index_teachings_on_lecture_id"
+  add_index "teachings", ["section_id"], name: "index_teachings_on_section_id"
 
 end
