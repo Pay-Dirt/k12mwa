@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212043710) do
+ActiveRecord::Schema.define(version: 20150212083530) do
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "classroom_number"
@@ -68,8 +68,9 @@ ActiveRecord::Schema.define(version: 20150212043710) do
   create_table "lectures", force: :cascade do |t|
     t.integer  "teacher_id"
     t.integer  "sub_subject_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.boolean  "combined_section"
   end
 
   add_index "lectures", ["sub_subject_id"], name: "index_lectures_on_sub_subject_id"
@@ -121,7 +122,10 @@ ActiveRecord::Schema.define(version: 20150212043710) do
     t.string   "contact"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "school_id"
   end
+
+  add_index "teachers", ["school_id"], name: "index_teachers_on_school_id"
 
   create_table "teachings", force: :cascade do |t|
     t.integer  "lecture_id"
