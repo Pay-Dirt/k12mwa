@@ -3,14 +3,14 @@ var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',['$sc
 	//fetch list of default classrooms
 	var defaultClassroomLoad = function(){
 		$http.get("/default_classrooms").success(function(data){
-			$scope.defaultClassrooms = data.default_classrooms;
+			$scope.defaultClassrooms = data;
 		});
 	};
 	defaultClassroomLoad();
 	
 	//here we load classrooms with all the section informations
 	$scope.classrooms = Classroom.fetchClassrooms(function(data,responseHeaders){
-		$scope.classrooms = data.classrooms;
+		$scope.classrooms = data;
 		fetchSection();
 	});
 	
@@ -72,7 +72,7 @@ var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',['$sc
 	
 	//this function will fetch 
 	var fetchSection = function(){
-		Section.fetchAllSection(function(data,responseHeaders){$scope.sections = data.sections;});
+		Section.fetchAllSection(function(data,responseHeaders){$scope.sections = data;});
 	};
 	
 	//function declared here

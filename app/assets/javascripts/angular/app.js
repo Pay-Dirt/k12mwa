@@ -1,4 +1,4 @@
-var schoolApp = angular.module('schoolApp',['ngRoute','schoolServices']);
+var schoolApp = angular.module('schoolApp',['ngRoute','schoolServices','ui.bootstrap']);
 
 schoolApp.config(['$routeProvider',function($routeProvider){
 	$routeProvider

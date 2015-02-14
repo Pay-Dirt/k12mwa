@@ -1,13 +1,18 @@
 <div class="container">
-	<div>
-	<select ng-model="newClassroom">
+	<div class="well">
+		<div class="container">
+			<label for="classroom">Add Classroom</label>
+	<select name="classroom" ng-model="newClassroom">
 		<option value="" disabled="true" selected="true">Choose a classroom</option>
 		<option ng-repeat="defaultClassroom in defaultClassrooms" value="{{defaultClassroom.id}}">{{defaultClassroom.classroom_name}}</option>
 	</select>
 	<button ng-click="addClassroom(newClassroom)" class="btn btn-primary">Add classroom</button>
-	<br />
-	<div class="highlight">
-	<div class="col-md-3" ng-repeat="classroom in classrooms">
+	</div>
+	</div>
+	
+	<div class="container">
+	<div class="row">
+		<div class="col-sm-4 well" ng-repeat="classroom in classrooms">
 			<h3>{{classroom.classroom_number}}
 				<span><button ng-click="deleteClassroom(classroom)">x</button></span>
 			</h3>
@@ -16,9 +21,10 @@
 			<button ng-click="removeSection(classroom.id)" class="btn btn-danger">-</button>
 			</div>
 			<div class="row">
-						<button ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" class="btn btn-default">{{section.section}}</button>
+				<button ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" class="btn btn-default">{{section.section}}</button>
 			</div>
 	</div>
 	</div>
+	</div>
 </div>
-</div>
+
