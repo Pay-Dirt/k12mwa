@@ -1,5 +1,15 @@
 <div class="container">
 	<ul>
+		<div ng-show="isTeacherPresent">
 		<li ng-repeat="teacher in teachers"><a href="teachers/{{teacher.id}}">{{teacher.name}}</a></li>
+		</div>
+		<div ng-show="!isTeacherPresent">
+			<form ng-submit="addTeacher()">
+			Name:<input type="text" ng-model="newTeacher.name" />
+			Father's Name:<input type="text" ng-model="newTeacher.fathers_name" />
+			Contact:<input type="text" ng-model="newTeacher.contact"/>
+			Email:<input type="email" ng-model="newTeacher.email" />
+			<button class="btn btn-primary" >Add</button>
+		</div>
 	</ul>
 </div>

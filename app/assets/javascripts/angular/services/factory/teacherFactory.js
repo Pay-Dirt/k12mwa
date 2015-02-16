@@ -8,6 +8,10 @@ schoolServices.factory('Teacher',['$http',function($http){
 		{
 			var url = "teachers/"+teacherId;
 			$http.get(url).success(callback);
+		},
+		create: function(data,callback){
+			var url = "teachers";
+			$http.post(url,data).success(callback);
 		}
 	};
 }]);

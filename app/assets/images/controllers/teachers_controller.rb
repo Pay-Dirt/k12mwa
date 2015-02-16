@@ -33,6 +33,6 @@ class TeachersController < ApplicationController
   
   #permit from here the params which are expected by active record
   def teacher_params
-    params.require(:teacher).permit(:name,:fathers_name,:contact)
+    params.require(:teacher).permit(:name,:fathers_name,:contact,:email)
   end
 end
