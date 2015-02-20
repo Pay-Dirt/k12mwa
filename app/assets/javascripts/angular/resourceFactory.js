@@ -1,11 +1,11 @@
+//created by Akash
 var resourceServices = angular.module('pg-resource',[]);
 resourceServices.factory('Resource',['$http',function($http){
 	
-		
-		return{
+	return{
 			create: function(url){
 				//break the url in array at every /(backlash)
-				var finalUrl = url.trim();
+				var finalUrlC = url.trim();
 				var resturl = (url.trim()).split("/");
 				var urlValue = [];
 				for(partialUrl in resturl){
@@ -16,6 +16,7 @@ resourceServices.factory('Resource',['$http',function($http){
 				
 				//function to map the data to url
 				function buildUrl(data){
+					var finalUrl = finalUrlC;
 					for(k in urlValue){
 						if(data[urlValue[k]]){
 							var d = (":"+urlValue[k]).trim();

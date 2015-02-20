@@ -1,3 +1,4 @@
+#created by Akash
 class SectionsController < ApplicationController
   protect_from_forgery :except => :all 
   
