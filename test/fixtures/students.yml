@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  roll_number: 1
+  name: MyString
+  course_id: 
+  section_id: 
+
+two:
+  roll_number: 1
+  name: MyString
+  course_id: 
+  section_id: 

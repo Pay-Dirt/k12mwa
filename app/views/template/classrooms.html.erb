@@ -22,7 +22,7 @@
 			<button ng-click="removeSection(classroom.id)" class="btn btn-danger">-</button>
 			</div>
 			<div class="row">
-				<button ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" class="btn btn-default">{{section.section}}</button>
+				<a ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" style="display: block" href="#/classrooms/{{classroom.id}}/sections/{{section.id}}">{{section.section}}</a>
 			</div>
 	</div>
 	</div>

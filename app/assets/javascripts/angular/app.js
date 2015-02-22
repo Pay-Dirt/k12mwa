@@ -10,5 +10,9 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		templateUrl: '/template/teacher',
 		controller: 'teacherCtrl'
 	})
+	.when('/classrooms/:classroomId/sections/:sectionId',{
+		templateUrl: '/template/sections',
+		controller: 'sectionCtrl'
+	})
 	.otherwise({redirectTo: '/'});
 }]);

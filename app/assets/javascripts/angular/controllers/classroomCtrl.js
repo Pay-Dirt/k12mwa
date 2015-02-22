@@ -13,7 +13,10 @@ var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',
 	Classroom.all({},function(data,responseHeaders){
 		if(data.classrooms == "none"){}
 		else{
+			data.splice(0,1);
 			$scope.classrooms = data;
+			//console.log(data[0]);
+			
 			fetchSection();
 		}
 	},function(errData){
