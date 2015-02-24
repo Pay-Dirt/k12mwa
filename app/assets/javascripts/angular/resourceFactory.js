@@ -42,7 +42,7 @@ resourceServices.factory('Resource',['$http',function($http){
 				},
 				//this will update the data of resource with given id
 				update: function(urlData,data,success,error){
-					$http.post(buildUrl(urlData),data).success(function(data,responseHeaders){
+					$http.patch(buildUrl(urlData),data).success(function(data,responseHeaders){
 						success(data);
 					}).error(function(data){error(data);});
 				},

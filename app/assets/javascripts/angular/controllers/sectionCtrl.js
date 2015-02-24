@@ -1,5 +1,5 @@
 var schoolApp = angular.module('schoolApp');
-schoolApp.controller('sectionCtrl',['$scope','$routeParams',function($scope,$routeParams){
+schoolApp.controller('sectionCtrl',['$scope','$routeParams','Student',function($scope,$routeParams,Student){
 	$scope.sectionId = $routeParams.classroomId;
 	$scope.classroomId = $routeParams.sectionId;
 	/*data required
@@ -9,6 +9,8 @@ schoolApp.controller('sectionCtrl',['$scope','$routeParams',function($scope,$rou
 	 * attendance
 	 * 
 	 */
-	
+	Student.all({},function(data){
+		$scope.students = data;
+	});
 	
 }]);
