@@ -1,6 +1,10 @@
 var schoolServices = angular.module('schoolServices');
-schoolServices.factory('Teacher',['$http',function($http){
-	return {
+schoolServices.factory('Teacher',['$http','Resource',function($http,Resource){
+	return Resource.create('teachers/:id');
+	
+}]);
+/*
+ * {
 		list: function(callback){
 			$http.get('teachers').success(callback);
 		},
@@ -13,5 +17,5 @@ schoolServices.factory('Teacher',['$http',function($http){
 			var url = "teachers";
 			$http.post(url,data).success(callback);
 		}
-	};
-}]);
+		};
+ */

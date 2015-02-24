@@ -13,3 +13,25 @@
  *= require_tree .
  *= require_self
  */
+.ng-dirty.ng-invalid
+{
+	border-color:red;
+}
+.block
+{
+	text-align:center;
+	margin-left:3px;
+	padding-left:3px;
+	padding-top:3px;
+	padding-right:3px;
+	padding-bottom:3px;
+}
+.block:hover
+{
+	margin-left:3px;
+	padding-left:3px;
+	padding-top:3px;
+	padding-right:3px;
+	padding-bottom:3px;
+	background-color:yellow;
+}

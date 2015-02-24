@@ -1,59 +1,61 @@
-var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',['$scope','$http','Classroom','Section',function($scope,$http,Classroom,Section){
+//Created by Akash
+var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',
+		['$scope','$http','Classroom','Section','ClassroomSections','DefaultClassrooms',
+		 function($scope,$http,Classroom,Section,ClassroomSections,DefaultClassrooms){
 	//fetch list of default classrooms in $scope.defaultClassrooms
 	//fetch list of default classrooms
 	var defaultClassroomLoad = function(){
-		$http.get("/default_classrooms").success(function(data){
-			$scope.defaultClassrooms = data;
-		});
+		DefaultClassrooms.all({},function(data){$scope.defaultClassrooms = data;});
 	};
 	defaultClassroomLoad();
-	
+	$scope.classrooms = [];$scope.sections = [];
 	//here we load classrooms with all the section informations
-	$scope.classrooms = Classroom.fetchClassrooms(function(data,responseHeaders){
-		$scope.classrooms = data;
-		fetchSection();
+	Classroom.all({},function(data,responseHeaders){
+		if(data.classrooms == "none"){}
+		else{
+			$scope.classrooms = data;
+			fetchSection();
+		}
+	},function(errData){
+		console.log(errData);
 	});
 	
 	//this will add a new classroom
 	$scope.addClassroom = function(classroomId){
-		var url = "classrooms";
 		var data = '{"default_classroom_id":"' + classroomId +'"}';
-		
 		//this will return the classroom information along with section after it is created
-		$http.post(url,data).success(function(data){
+		Classroom.create({},data,
+				function(data){
 			if(data.success == "no"){
 				alert("Can't create classroom");
 				$scope.newClassroom = "";
 			}
 			else{
 			$scope.classrooms.push(data);
+			//console.log($scope.classrooms);
 			$scope.newClassroom = "";
-			//console.log(data);
-			var sectionUrl = "classrooms/" + data.id + "/sections";
-			$http.get(sectionUrl).success(function(value){
-				if(!$scope.sections)
-				{$scope.sections = value;}
-				else
-				{$scope.sections.push(value[0]);}
-			});}
-		});
+			ClassroomSections.find({classroomId:data.id},{},function(data){
+				$scope.sections.push(data[0]);
+			});
+			}
+	});
 	};
 	
 	//this will delete classroom alongwith its sections
 	$scope.deleteClassroom = function(classroom){
-		Classroom.delete({classroomId: classroom.id},
-				function(data,responseHeaders){
+		Classroom.destroy({id:classroom.id},
+				function(data){
 			$scope.classrooms.splice($scope.classrooms.indexOf(classroom),1);
 		});
 	};
 	
 	//this function will increment section
 	$scope.addSection = function(classroom){
-		var url = "classrooms/"+classroom+"/sections";
-		$http.post(url).success(function(data){
-			if(data.success == "no"){alert(data.error);}
-			else{$scope.sections.push(data);}
-		});
+		ClassroomSections.create({classroomId:classroom},{},
+				function(data){
+					if(data.success == "no"){alert(data.error);}
+					else{$scope.sections.push(data);}
+				});
 	};
 	
 	//this function will remove last section added
@@ -72,10 +74,9 @@ var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',['$sc
 	
 	//this function will fetch 
 	var fetchSection = function(){
-		Section.fetchAllSection(function(data,responseHeaders){$scope.sections = data;});
+		Section.all({},function(data,responseHeaders){$scope.sections = data;});
 	};
 	
-	//function declared here
-	
+	//faltu function declared here
 	
 }]);

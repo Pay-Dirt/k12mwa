@@ -1,4 +1,5 @@
-<div class="container">
+<div class="col-sm-2"></div>
+<div class="container col-sm-10">
 	<div class="well">
 		<div class="container">
 			<label for="classroom">Add Classroom</label>
@@ -9,12 +10,8 @@
 	<button ng-click="addClassroom(newClassroom)" class="btn btn-primary">Add classroom</button>
 	</div>
 	</div>
+	</div>
 	
-	<div class="container">
-	<div class="row">
-		<div class="col-sm-4 well" ng-repeat="classroom in classrooms">
-			<h3>{{classroom.classroom_number}}
-				<span><button ng-click="deleteClassroom(classroom)">x</button></span>
 			</h3>
 			<div class="row">
 			<button ng-click="addSection(classroom.id)" class="btn btn-success">+</button>
@@ -26,5 +23,3 @@
 	</div>
 	</div>
 	</div>
-</div>
-

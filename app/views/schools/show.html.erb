@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script type="text/ng-template" id="student_directive.html"></script>
+
   <title>SmartRailsSchool</title>
  	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -13,10 +15,13 @@
 <div ng-app="schoolApp">
 	<%= render 'layouts/navbar' %>
 	<!--Modal for contact us-->
+	<%= render 'template/teacher_directive'%>
+	
 	<%= render 'layouts/contactus' %>
 	<!--Modal for contact us ends here-->
+    <%= render 'layouts/vertical_navbar'%>
 	<div class="container">
-	<h1><%=@school.name%></h1>
+	
 	<div ng-view>
 		
 	</div>
