@@ -1,7 +1,6 @@
 <script type="text/ng-template" id="classroom_directive.html">
-	
 			<h3>{{classroom.classroom_number}}
-				<span><button ng-click="deleteClassroom(classroom)">x</button></span>
+				<span><button ng-click="open('sm',classroom)">x</button></span>
 			</h3>
 			<div class="row">
 			<button ng-click="addSection(classroom.id)" class="btn btn-success">+</button>

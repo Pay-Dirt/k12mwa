@@ -5,8 +5,7 @@ var directive = angular.module('direct',[]).directive('teacher',function(){
 				teacher:'=teacher'
 				},
 			templateUrl: 'teacher_directive.html',
-			
-	controller: function($scope,Teacher){
+			controller: function($scope,Teacher){
 			var teacher = $scope.teacher;
 		Teacher.find({'id':teacher},{},function(data){$scope.tosh = data;console.log(data);
 	});
@@ -46,12 +45,23 @@ module.directive('classroomData',function(){
 			classroom:'=classroom'
 		},
 		templateUrl:'classroom_directive.html',
-		controller:function($scope,$http,Classroom,Section,ClassroomSections,DefaultClassrooms){
+		controller:function($scope,Classroom,Section,ClassroomSections,DefaultClassrooms,$modal){
+			$scope.open = function(size,classroom){
+				$scope.classroomToDelete=classroom;
+				  var modalInstance = $modal.open({
+					  templateUrl: 'classroom_delete.html',
+				      controller: 'classroomModalInstanceCtrl',
+				      size: size,
+				      resolve: {
+				          classroomToDelete: function () {
+				            return $scope.classroomToDelete;
+				          }}
+				  	});
+				  };
+			
+			
+			
 			var classroom= $scope.classroom;
-			
-			
-			
-			
 			
 			
 
@@ -61,7 +71,8 @@ module.directive('classroomData',function(){
 					DefaultClassrooms.all({},function(data){$scope.defaultClassrooms = data;});
 				};
 				defaultClassroomLoad();
-				$scope.classrooms = [];$scope.sections = [];
+				$scope.classrooms = [];
+				$scope.sections = [];
 				//here we load classrooms with all the section informations
 				Classroom.all({},function(data,responseHeaders){
 					if(data.classrooms == "none"){}
@@ -131,23 +142,6 @@ module.directive('classroomData',function(){
 				};
 				
 				//faltu function declared here
-				
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 		}
