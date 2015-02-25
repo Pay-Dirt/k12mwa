@@ -1,5 +1,4 @@
-<div class="col-sm-2"></div>
-<div class="container col-sm-10">
+<div class="container">
 	<div class="well">
 		<div class="container">
 			<label for="classroom">Add Classroom</label>
@@ -10,16 +9,14 @@
 	<button ng-click="addClassroom(newClassroom)" class="btn btn-primary">Add classroom</button>
 	</div>
 	</div>
-	</div>
 	
-			</h3>
-			<div class="row">
-			<button ng-click="addSection(classroom.id)" class="btn btn-success">+</button>
-			<button ng-click="removeSection(classroom.id)" class="btn btn-danger">-</button>
-			</div>
-			<div class="row">
-				<button ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" class="btn btn-default">{{section.section}}</button>
-			</div>
+	<div class="container">
+	<div class="row">
+	<div class="col-sm-4 well" ng-repeat="classroom in classrooms">
+	
+<classroom-data classroom="classroom"> </classroom-data>
+</div>
 	</div>
 	</div>
-	</div>
+</div>
+<%= render 'template/classroom_directive'%>

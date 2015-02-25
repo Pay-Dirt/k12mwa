@@ -11,7 +11,7 @@
 }]);
 
 */
-angular.module('schoolApp').controller('ModalInstanceCtrl',['$scope','$modalInstance','teacherToDelete',function ($scope, $modalInstance,teacherToDelete) {
+angular.module('schoolApp').controller('ModalInstanceCtrl',['$scope','$modalInstance','teacherToDelete','Teacher',function ($scope, $modalInstance,teacherToDelete,Teacher) {
 	$scope.teacherToDelete=teacherToDelete;
 	console.log($scope.teacherToDelete);
 	$scope.isMatching=false;
@@ -27,8 +27,13 @@ angular.module('schoolApp').controller('ModalInstanceCtrl',['$scope','$modalInst
 	
 	
   $scope.ok = function () {
+	  console.log($scope.teacherToDelete.name);
+
+		Teacher.destroy({id:$scope.teacherToDelete.id},
+				function(data){
+			$scope.teachers.splice($scope.teachers.indexOf($scope.teacherToDelete.id),1);
+		});
 	  
-	  console.log($scope.teacherToDelete.id);
     $modalInstance.close('success');
   };
 
