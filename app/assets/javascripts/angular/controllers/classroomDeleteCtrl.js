@@ -1,4 +1,4 @@
-angular.module('schoolApp').controller('classroomModalInstanceCtrl',['$scope','$modalInstance','classroomToDelete','Classroom',function ($scope, $modalInstance,classroomToDelete,Classroom) {
+angular.module('schoolApp').controller('classroomModalInstanceCtrl',['$scope','$rootScope','$modalInstance','classroomToDelete','Classroom',function ($scope,$rootScope, $modalInstance,classroomToDelete,Classroom) {
 	$scope.classroomToDelete=classroomToDelete;
 	$scope.isMatching=false;
 	$scope.keyPress = function(keyCode){
@@ -17,7 +17,7 @@ angular.module('schoolApp').controller('classroomModalInstanceCtrl',['$scope','$
 
 		Classroom.destroy({id:$scope.classroomToDelete.id},
 				function(data){
-			$scope.classrooms.splice($scope.classrooms.indexOf($scope.classroomToDelete.id),1);
+			$rootScope.classrooms.splice($rootScope.classrooms.indexOf($scope.classroomToDelete),1);
 		});
 	  
     $modalInstance.close('success');

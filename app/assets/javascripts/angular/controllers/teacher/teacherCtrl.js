@@ -1,7 +1,4 @@
-var teacherCtrl = angular.module('schoolApp').controller('teacherCtrl',['$scope','$http','Teacher','$routeParams',function($scope,$http,Teacher,$routeParams){
-	//$scope.loadTeachers = $http.get('teachers').success(function(data){
-	//	$scope.teachers = data;
-	//});
+var teacherCtrl = angular.module('schoolApp').controller('teacherCtrl',['$scope','$rootScope','Teacher','$routeParams',function($scope,$rootScope,Teacher,$routeParams){
 	
 	$scope.bFunction = "Add";
 	$scope.nameDisabled = false;
@@ -10,12 +7,13 @@ var teacherCtrl = angular.module('schoolApp').controller('teacherCtrl',['$scope'
 	$scope.isLoadingComplete = true;
 	$scope.newTeacher={};
 	$scope.isTeacherPresent=true;
-	$scope.teachers = [];
+	$rootScope.teachers = [];
 	Teacher.all({},function(data){
-		$scope.teachers = data;
-		if(data.length>0){$scope.isTeacherPresent = true;}
-		else{$scope.isTeacherPresent = false;}
+		$rootScope.teachers = data;
+		//if(data.length>0){$scope.isTeacherPresent = true;}
+		//else{$scope.isTeacherPresent = false;}
 	});
+	
 	
 	//this will create a new teacher
 	$scope.addTeacher = function(){
@@ -27,7 +25,7 @@ var teacherCtrl = angular.module('schoolApp').controller('teacherCtrl',['$scope'
 			}
 			else{
 			//$scope.isLoadingComplete = false;	
-			$scope.teachers.push(data);
+			$rootScope.teachers.push(data);
 			$scope.newTeacher = "";
 			}
 			//console.log("request complete");

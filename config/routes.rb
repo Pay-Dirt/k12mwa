@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :students
+
   resources :teachings
 
   resources :lectures
@@ -19,6 +21,7 @@ resources :default_classrooms, only: [:index]
 #custom template start here
 get 'template/classrooms', to: 'template#classrooms'
 get 'template/teacher', to: 'template#teacher'
+get 'template/classroom_section',to: 'template#classroom_section'
 #custom template end here
 
 root 'schools#index'  
@@ -31,6 +34,7 @@ resources :schools, except: [:destroy] do
       resources :sections, only: [:index,:show,:create,:destroy] do
         #to display teacher of that class
         resources :teachers, only: [:index]
+        resources :students
       end
     end
   end

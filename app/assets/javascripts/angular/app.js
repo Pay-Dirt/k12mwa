@@ -22,6 +22,13 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		templateUrl:'teacher_form.html',
 		controller:'teacherEditCtrl'
 	})
-	
+	.when('/classroom/:classroomId/section/:sectionId',{
+		templateUrl:'/template/classroom_section',
+		controller:'classroomSectionCtrl'
+	})
+	.when('/classroomHome',{
+		templateUrl:'/template/classroom_home',
+		controller:'classroomHomeCtrl'
+	})
 	.otherwise({redirectTo: '/'});
 }]);

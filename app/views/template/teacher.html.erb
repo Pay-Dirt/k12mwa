@@ -5,8 +5,9 @@
 		<div ng-show="teachers.length">
 			<h1>teacher is present</h1>
 			<div ng-repeat="teacher in teachers">
-			<teacher-data teacher="teacher"></teacher-data>	
-		</div>
+				
+				<teacher-data teacher="teacher"></teacher-data>	
+			</div>
 		<br/></br/>
 				
 		</div>
@@ -24,3 +25,4 @@
 <%= render 'forms/teacher_form' %>
 <%= render 'template/teacher_profile'%>
 <%= render 'template/teacher_delete'%>
+<%= render 'template/test_directive'%>
