@@ -1,0 +1,35 @@
+<script type="text/ng-template" id="teacher_form.html">
+<form name="teacherForm" ng-submit="addTeacher(newTeacher) && teacherForm.$valid" novalidate>
+<label for="Teacher's Name">Teacher's Name</label>
+<div>
+<input name="name" type = "text" disabled = "{{nameDisabled}}" placeholder = "Enter Teacher's name" ng-model="newTeacher.name" ng-pattern="/^[A-Za-z]+$/" ng-maxlength=5 required><br/>
+<span ng-show="teacherForm.name.$dirty && teacherForm.name.$error.required">Field cannot be blank</span>
+<span ng-show="teacherForm.name.$dirty && teacherForm.name.$error.pattern">pattern doesnt match</span>
+<span ng-show="teacherForm.name.$dirty && teacherForm.name.$error.maxlength">Range exceedded</span>
+</div>
+
+
+<label for="Father's Name">Father's Name</label>
+<div>
+<input name="fathers_name"type = "text" disabled = "{{fathers_nameDisabled}}" placeholder = "Enter Father's name" ng-model="newTeacher.fathers_name" ng-pattern="/^[A-Za-z]+$/" required><br/>
+<span ng-show="teacherForm.fathers_name.$dirty && teacherForm.fathers_name.$error.required">Field cannot be blank</span>
+<span ng-show="teacherForm.fathers_name.$dirty && teacherForm.fathers_name.$error.pattern">pattern doesnt match</span>
+<span ng-show="teacherForm.fathers_name.$dirty && teacherForm.fathers_name.$error.maxlength">Range exceedded</span>
+</div>
+
+
+<label for="Contact">Contact</label>
+<div>
+<input name="contact" type = "text" disabled = "{{contactDisabled}}"placeholder = "Enter your mobile number" ng-model="newTeacher.contact" ng-pattern="/^[0-9]+$/" ng-minlength=3 ng-maxlength=10 required><br/>
+<span ng-show="teacherForm.contact.$dirty && teacherForm.contact.$error.required">Field cannot be blank</span>
+<span ng-show="teacherForm.contact.$dirty && teacherForm.contact.$error.pattern">pattern doesnt match</span>
+<span ng-show="(teacherForm.contact.$error.maxlength || teacherForm.contact.$error.minlength) && teacherForm.contact.$dirty ">Enter  a 10 digit number</span>
+</div>
+
+<input type="submit"  value ="{{bFunction}}" >
+<div ng-hide="isLoadingComplete">fhfh</div>
+<a href='#/teacher'>Back</a>
+
+
+</form>
+</script>

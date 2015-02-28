@@ -12,19 +12,14 @@
 	
 	<div class="container">
 	<div class="row">
-		<div class="col-sm-4 well" ng-repeat="classroom in classrooms">
-			<h3>{{classroom.classroom_number}}
-				<span><button ng-click="deleteClassroom(classroom)">x</button></span>
-			</h3>
-			<div class="row">
-			<button ng-click="addSection(classroom.id)" class="btn btn-success">+</button>
-			<button ng-click="removeSection(classroom.id)" class="btn btn-danger">-</button>
-			</div>
-			<div class="row">
-				<button ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" class="btn btn-default">{{section.section}}</button>
-			</div>
-	</div>
+	
+	<div class="col-sm-4 well" ng-repeat="classroom in classrooms">
+	
+<classroom-data classroom="classroom"></classroom-data>
+</div>
 	</div>
 	</div>
 </div>
+<%= render 'template/classroom_directive'%>
+<%= render 'template/classroom_delete'%>
 

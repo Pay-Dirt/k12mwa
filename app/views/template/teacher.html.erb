@@ -1,5 +1,28 @@
 <div class="container">
+<div class="col-md-2"></div>
+<div class="col-md-10">
 	<ul>
-		<li ng-repeat="teacher in teachers"><a href="teachers/{{teacher.id}}">{{teacher.name}}</a></li>
-	</ul>
+		<div ng-show="teachers.length">
+			<h1>teacher is present</h1>
+			<div ng-repeat="teacher in teachers">
+				
+				<teacher-data teacher="teacher"></teacher-data>	
+			</div>
+		<br/></br/>
+				
+		</div>
+		<div ng-show="!teachers.length">
+        <h1>No teachers are added yet!<br/>
+        	Click the link below to add teacher</h1>     
+   
+		</div>
+
 </div>
+<br/>
+<div class="col-md-2">
+</div>
+		<button class="btn"><a href="#/teacher/new">Add</a></button>
+<%= render 'forms/teacher_form' %>
+<%= render 'template/teacher_profile'%>
+<%= render 'template/teacher_delete'%>
+<%= render 'template/test_directive'%>

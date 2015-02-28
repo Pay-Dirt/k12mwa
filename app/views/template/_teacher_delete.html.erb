@@ -1,0 +1,15 @@
+    <script type="text/ng-template" id="teacher_delete.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Delete teacher</h3>
+        </div>
+        <div class="modal-body">
+        Enter teacher's Name:<input type="text" ng-keyup="keyPress($event)" ng-model="teachers_name" ng-pattern="/^[A-Za-z]+$/">
+        </div>
+        
+        <div class="modal-footer">
+        	
+            <button class="btn btn-primary" ng-disabled="!isMatching" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+

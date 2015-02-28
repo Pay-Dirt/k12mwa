@@ -37,6 +37,7 @@ class ClassroomsController < ApplicationController
   def destroy
    @classroom.destroy
    render json: "{}"
+ 
   end
   
   private

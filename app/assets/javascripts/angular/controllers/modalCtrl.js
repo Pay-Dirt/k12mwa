@@ -14,6 +14,7 @@ schoolApp.controller('modalCtrl',['$scope','$modal',function($scope,$modal){
 			console.log(result);
 		});
 	};
+	//$scope.main=1;
 }]);
 
 schoolApp.controller('modalInstanceCtrl',['$scope','$modalInstance',function($scope,$modalInstance){
@@ -24,4 +25,5 @@ schoolApp.controller('modalInstanceCtrl',['$scope','$modalInstance',function($sc
 	$scope.cancel = function(){
 		$modalInstance.dismiss('failed');
 	};
+	
 }]);
