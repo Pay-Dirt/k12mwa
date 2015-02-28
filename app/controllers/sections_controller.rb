@@ -1,7 +1,7 @@
 #created by Akash
 class SectionsController < ApplicationController
   protect_from_forgery :except => :all 
-  
+  before_action :set_school
   before_action :set_classroom, only: [:create,:destroy,:show]
   
   def index
@@ -48,7 +48,7 @@ class SectionsController < ApplicationController
   
   private
   def set_classroom
-    @classroom = School.find(params[:school_id]).classrooms.find(params[:classroom_id])
+    @classroom = @school.classrooms.find(params[:classroom_id])
   end
   
   #this function returns the hash of the last section added

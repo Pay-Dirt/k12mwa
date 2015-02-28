@@ -1,4 +1,5 @@
 class ClassroomsController < ApplicationController
+  before_action :check_authentication
   before_action :set_school
   before_action :set_classroom, only: [:destroy,:show]
   
@@ -41,7 +42,7 @@ class ClassroomsController < ApplicationController
   
   private
   def set_school
-    @school = School.find(params[:school_id])
+    @school = School.find(session[:school_id])
   end
   
   #def classroom_params

@@ -1,7 +1,8 @@
 //Created by Akash
 var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',
-		['$scope','$http','Classroom','Section','ClassroomSections','DefaultClassrooms',
-		 function($scope,$http,Classroom,Section,ClassroomSections,DefaultClassrooms){
+		['$scope','$http','Classroom','Section','ClassroomSections','DefaultClassrooms','Notification','Auth',
+		 function($scope,$http,Classroom,Section,ClassroomSections,DefaultClassrooms,Notification,Auth){
+	$scope.signout = function(){Auth.signout();};
 	//fetch list of default classrooms in $scope.defaultClassrooms
 	//fetch list of default classrooms
 	var defaultClassroomLoad = function(){
@@ -20,7 +21,7 @@ var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',
 			fetchSection();
 		}
 	},function(errData){
-		console.log(errData);
+		//console.log(errData);
 	});
 	
 	//this will add a new classroom

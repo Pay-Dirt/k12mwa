@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  
+  resources :sessions, only: [:create,:destroy]  
 
   resources :teachings
 
@@ -22,22 +22,32 @@ resources :default_classrooms, only: [:index]
 get 'template/classrooms', to: 'template#classrooms'
 get 'template/teacher', to: 'template#teacher'
 get 'template/sections', to: 'template#sections'
+get 'template/login', to: 'template#login'
+get 'template/checklogin', to: 'template#checklogin'
 #custom template end here
 
-root 'schools#index'  
+root 'schools#product'  
+#new routes
+get 'sessions/checklogin', to: 'sessions#checklogin'
+resources :sections, only: [:index]
+resources :classrooms, only: [:index,:show,:destroy,:create] do
+  resources :sections, only: [:index,:show,:destroy,:create]
+end
 
-resources :schools, except: [:destroy] do
-    resources :teachers
-    resources :students
-    resources :sections, only: [:index]
-    
-    resources :classrooms, only: [:index,:show,:destroy,:create] do
-      resources :sections, only: [:index,:show,:create,:destroy] do
-        #to display teacher of that class
-        resources :teachers, only: [:index]
-      end
-    end
-  end
+#these routes are to be used when we request schools/:id
+#but when using login these are not required at all 
+#resources :schools, except: [:destroy] do
+#    resources :teachers
+#    resources :students
+#    resources :sections, only: [:index]
+#    
+#    resources :classrooms, only: [:index,:show,:destroy,:create] do
+#      resources :sections, only: [:index,:show,:create,:destroy] do
+#        #to display teacher of that class
+#        resources :teachers, only: [:index]
+#      end
+#    end
+#  end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

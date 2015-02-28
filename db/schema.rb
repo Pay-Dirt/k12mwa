@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222160622) do
+ActiveRecord::Schema.define(version: 20150226171116) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "account_type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "accounts", ["user_id"], name: "index_accounts_on_user_id"
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "classroom_number"
@@ -150,5 +159,18 @@ ActiveRecord::Schema.define(version: 20150222160622) do
 
   add_index "teachings", ["lecture_id"], name: "index_teachings_on_lecture_id"
   add_index "teachings", ["section_id"], name: "index_teachings_on_section_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "username"
+    t.string   "mobile"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
+    t.integer  "school_id"
+  end
+
+  add_index "users", ["mobile"], name: "index_users_on_mobile"
+  add_index "users", ["school_id"], name: "index_users_on_school_id"
+  add_index "users", ["username"], name: "index_users_on_username", unique: true
 
 end
