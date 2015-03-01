@@ -11,6 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 20150222160622) do
+=======
 ActiveRecord::Schema.define(version: 20150226171116) do
 
   create_table "accounts", force: :cascade do |t|
@@ -21,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150226171116) do
   end
 
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id"
+>>>>>>> classroomApp
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "classroom_number"

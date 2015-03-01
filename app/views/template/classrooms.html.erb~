@@ -14,11 +14,26 @@
 	
 	<div class="container">
 	<div class="row">
+<<<<<<< HEAD
+	
 	<div class="col-sm-4 well" ng-repeat="classroom in classrooms">
 	
 <classroom-data classroom="classroom"></classroom-data>
 </div>
-
+=======
+		<div class="col-sm-4 well" ng-repeat="classroom in classrooms">
+			<h3>{{classroom.classroom_number}}
+				<span><button ng-click="deleteClassroom(classroom)">x</button></span>
+			</h3>
+			<div class="row">
+			<button ng-click="addSection(classroom.id)" class="btn btn-success">+</button>
+			<button ng-click="removeSection(classroom.id)" class="btn btn-danger">-</button>
+			</div>
+			<div class="row">
+				<a ng-repeat="section in sections  | filter: {classroom_id: classroom.id}" style="display: block" href="#/classrooms/{{classroom.id}}/sections/{{section.id}}">{{section.section}}</a>
+			</div>
+	</div>
+>>>>>>> classroomApp
 	</div>
 	</div>
 </div>

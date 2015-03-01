@@ -49,7 +49,8 @@ var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',['$sc
 	$scope.deleteClassroom = function(classroom){
 		Classroom.destroy({id:classroom.id},
 				function(data){
-$rootScope.classrooms.splice($rootScope.classrooms.indexOf(classroom),1);
+<<<<<<< HEAD
+			$rootScope.classrooms.splice($rootScope.classrooms.indexOf(classroom),1);
 		});
 	};
 	
@@ -57,6 +58,38 @@ $rootScope.classrooms.splice($rootScope.classrooms.indexOf(classroom),1);
 	//this function will fetch 
 	var fetchSection = function(classroomData){
 		Section.all({},function(data,responseHeaders){$rootScope.sections = data;$rootScope.classrooms = classroomData;});
+=======
+			$scope.classrooms.splice($scope.classrooms.indexOf(classroom),1);
+		});
+	};
+	
+	//this function will increment section
+	$scope.addSection = function(classroom){
+		ClassroomSections.create({classroomId:classroom},{},
+				function(data){
+					if(data.success == "no"){alert(data.error);}
+					else{$scope.sections.push(data);}
+				});
+	};
+	
+	//this function will remove last section added
+	$scope.removeSection = function(classroom){
+		var url = "classrooms/"+classroom+"/sections/1";
+		$http.delete(url).success(function(data){
+			//this will remove the section from the model of angular
+			//console.log(data.success);
+			if(data.success == "no"){
+				alert("Can't delete");}
+			else{
+				$scope.sections.splice($scope.sections.indexOf(data),1);
+			}
+		});
+	};
+	
+	//this function will fetch 
+	var fetchSection = function(){
+		Section.all({},function(data,responseHeaders){$scope.sections = data;});
+>>>>>>> classroomApp
 	};
 	
 	//faltu function declared here

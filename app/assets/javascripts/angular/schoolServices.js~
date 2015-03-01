@@ -1,8 +1,16 @@
 var schoolServices = angular.module('schoolServices',['ngResource','pg-resource']);
+<<<<<<< HEAD
 
 schoolServices.factory('ClassroomSections',['Resource',function(Resource){
 	return Resource.create('classrooms/:classroomId/sections/:id');
 }]);
 schoolServices.factory('DefaultClassrooms',['Resource',function(Resource){
 	return Resource.create('/default_classrooms/:id');
-
+=======
+schoolServices.factory('ClassroomSections',['Resource',function(Resource){
+	return Resource.create('classrooms/:classroomId/sections/:id');
+>>>>>>> classroomApp
+}]);
+schoolServices.factory('DefaultClassrooms',['Resource',function(Resource){
+	return Resource.create('/default_classrooms/:id');
+}]);

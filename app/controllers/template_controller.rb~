@@ -1,2 +1,6 @@
 class TemplateController < ApplicationController
+<<<<<<< HEAD
+  
+=======
+>>>>>>> classroomApp
 end
