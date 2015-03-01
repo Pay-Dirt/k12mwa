@@ -15,7 +15,7 @@ module SessionsHelper
   
   def check_authentication
     if !logged_in?
-      render json: {success:"no",error:"authFail",display:"yes",message:"Authentication Failed!"}
+      render json: {success:{success:"no",type:"authFail",display:"yes",message:"Authentication Failed!"},data:{}}
     end
   end
   
