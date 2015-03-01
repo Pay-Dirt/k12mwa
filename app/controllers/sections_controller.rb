@@ -1,16 +1,16 @@
 #created by Akash
 class SectionsController < ApplicationController
-  protect_from_forgery :except => :all 
+  before_action :check_authentication
   before_action :set_school
   before_action :set_classroom, only: [:create,:destroy,:show]
   
   def index
     if params[:classroom_id]
-      @sections = School.find(params[:school_id]).classrooms.find(params[:classroom_id]).sections.order(section: :asc).all
-      render json: @sections
+      @sections = @school.classrooms.find(params[:classroom_id]).sections.order(section: :asc).all
+      render json: {success:{success:"yes",type:"success",display:"no",message:"Classroom loaded"},data:{sections:@sections}}
     else
       @sections = Section.order(section: :asc).all
-      render json: @sections
+      render json: {success:{success:"yes",type:"success",display:"no",message:"Classroom loaded"},data:{sections:@sections}}
     end
   end
  
@@ -21,12 +21,12 @@ class SectionsController < ApplicationController
       new_section = (last_section[0].ord + 1).chr
       @section = @classroom.sections.new(section: new_section)
       if @section.save
-        render json: @section
+        render json: {success:{success:"yes",type:"success",display:"no",message:"Section created"},data:{section:@section}}
       else
-        render json: '{"error":"unable to create section"}'
+        render json: {success:{success:"no",type:"error",display:"yes",message:"Unable to create section"},data:{section:@section}}
       end
     else
-        render json: '{"success":"no","display":"yes","error":"Can only create upto 10 sections"}'      
+        render json: {success:{success:"no",type:"success",display:"yes",message:"Can only create upto 10 sections"},data:{section:@section}}      
     end
     
   end
@@ -36,12 +36,12 @@ class SectionsController < ApplicationController
     last_section = last_section_find
     if last_section.section[0].ord > 65
       if last_section.destroy
-        render json: last_section
+        render json: {success:{success:"yes",type:"success",display:"yes",message:"Section successfully deleted"},data:{section:last_section}}
       else
-        render json: '{"success":"no"}'
+        render json: {success:{success:"no",type:"error",display:"no",message:"Unable to delete section"},data:{section:last_section}}
       end
      else
-      render json: '{"success":"no","why":"can\' delete last section"}'   
+      render json: {success:{success:"no",type:"warning",display:"yes",message:"Can't delete.\nLast section"},data:{section:last_section}}   
     end
   end
   

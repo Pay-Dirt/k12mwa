@@ -3,7 +3,9 @@ var schoolApp = angular.module('schoolApp',['ngRoute','schoolServices','errorSer
 
 schoolApp.config(['$routeProvider',function($routeProvider){
 	$routeProvider
-	.when('/',{})
+	.when('/',{
+		
+	})
 	.when('/schools/',{
 		templateUrl: '/template/classrooms',
 		controller: 'classroomCtrl'
@@ -20,16 +22,15 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		templateUrl: 'template/logout',
 		controller: 'logoutCtrl'
 	})
-	.when('schools/teacher/:teacherId',{
-		templateUrl: '/template/teacher',
-		controller: 'teacherCtrl'
-	})
-
 	.when('/teacher/new',{
 		templateUrl:'teacher_form.html',
 		controller:'teacherCtrl'
 	})
-	.when('/teacher/:teacherId',{
+	.when('/schools/teacher',{
+		templateUrl: 'template/teacher',
+		controller: 'teacherCtrl'
+	})
+	.when('/schools/teacher/:teacherId',{
 		templateUrl:'teacher_profile.html',
 		controller:'teacherCtrl'
 	})
@@ -37,7 +38,7 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		templateUrl:'teacher_form.html',
 		controller:'teacherEditCtrl'
 	})
-	.when('/classroom/:classroomId/section/:sectionId',{
+	.when('/schools/classroom/:classroomId/section/:sectionId',{
 		templateUrl:'/template/classroom_section',
 		controller:'classroomSectionCtrl'
 	})
@@ -45,9 +46,5 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		templateUrl:'/template/classroom_home',
 		controller:'classroomHomeCtrl'
 	})
-	.when('/schools/classrooms/:classroomId/sections/:sectionId',{
-		templateUrl: '/template/sections',
-		controller: 'sectionCtrl'
-	})
-	.otherwise({redirectTo: '/login'});
+	.otherwise({redirectTo: '/checklogin'});
 }]);

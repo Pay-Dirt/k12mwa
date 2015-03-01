@@ -6,7 +6,7 @@ errorServices.factory('Error',['$location','Notification','UserSessionData',func
 		parse: function(data,success,error){
 			var originalData = data.data;
 			var errorData = data.success;
-			console.log(data);
+			//console.log(data);
 			//here implement methods to show or delete error
 				if(errorData.display=="yes"){
 					switch(errorData.type){

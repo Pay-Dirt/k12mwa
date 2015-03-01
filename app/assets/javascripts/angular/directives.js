@@ -44,7 +44,7 @@ module.directive('classroomData',function(){
 			classroom:'=classroom'
 		},
 		templateUrl:'classroom_directive.html',
-		controller:function($scope,$location,$rootScope,$http,Classroom,Section,ClassroomSections,DefaultClassrooms,$modal){
+		controller:function($scope,$location,$rootScope,$http,Classroom,Section,ClassroomSections,DefaultClassrooms,$modal,Error){
 			
 			$scope.sections = $rootScope.sections;
 			
@@ -65,25 +65,25 @@ module.directive('classroomData',function(){
 				$scope.deleteClassroom = function(classroom){
 					Classroom.destroy({id:classroom.id},
 							function(data){
-						$rootScope.classrooms.splice($rootScope.classrooms.indexOf(classroom),1);
+						Error.parse(data,function(data){
+							$rootScope.classrooms.splice($rootScope.classrooms.indexOf(classroom),1);
+						},function(data){});
+						
 					});
 				};
 
 				//this function will increment section
 				$scope.addSection = function(classroom){
-					ClassroomSections.create({classroomId:classroom},{},
+					ClassroomSections.create({classroomId:classroom.id},{},
 							function(data){
-								console.log(data);
-								if(data.success == "no"){alert(data.error);}
-								else{$rootScope.sections.push(data);}
-							});
+							Error.parse(data,function(data){
+								$rootScope.sections.push(data.section);
+							},function(data){});
+					});
 				};
 				
 				//this function will remove last section added
 				$scope.removeSection = function(classroom){
-					
-					
-					
 					ClassroomSections.destroy({classroomId:classroom.id,id:1},function(data){
 						//function to provide index of data from sections
 						var getIndex = function(from,data){
@@ -91,11 +91,9 @@ module.directive('classroomData',function(){
 								if(from[x].id == data.id){return x;}
 							}
 						};
-						if(data.success == "no"){
-							alert("Can't delete");}
-						else{
-							$rootScope.sections.splice(getIndex($rootScope.sections,data),1);
-						}
+						Error.parse(data,function(data){
+							$rootScope.sections.splice(getIndex($rootScope.sections,data.section),1);
+						},function(data){});
 					});
 				};
 				//this provides a link to enter a particular section of classroom

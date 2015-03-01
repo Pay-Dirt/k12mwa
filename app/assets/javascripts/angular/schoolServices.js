@@ -5,4 +5,4 @@ schoolServices.factory('ClassroomSections',['Resource',function(Resource){
 }]);
 schoolServices.factory('DefaultClassrooms',['Resource',function(Resource){
 	return Resource.create('/default_classrooms/:id');
-
+}]);

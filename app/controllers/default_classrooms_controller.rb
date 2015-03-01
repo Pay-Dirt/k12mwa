@@ -4,7 +4,8 @@ class DefaultClassroomsController < ApplicationController
   #this might bring uniformity throughout
   
   def index
+    #create a method to check if no default classrooms are present the create
     @default_classrooms = DefaultClassroom.order(id: :asc).all
-    render json: @default_classrooms  
+    render json: {success:{success:"yes",display:"no",type:"success",message:"Default Classrooms loaded!"},data:{default_classrooms:@default_classrooms}}  
   end
 end

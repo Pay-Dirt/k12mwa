@@ -6,9 +6,9 @@ class ClassroomsController < ApplicationController
   def index
     @classrooms = @school.classrooms.order(classroom_number: :asc).all
     if @classrooms.length <= 0
-      render json: '{"classrooms":"none"}'
+      render json: {success:{success:"yes",type:"notice",display:"no"},data:{classrooms:@classrooms}}
     else
-      render json: @classrooms.push({success:"yes",type:"notice",display:"no"}).reverse
+      render json: {success:{success:"yes",type:"notice",display:"no"},data:{classrooms:@classrooms}}
     end
   end
   
@@ -21,30 +21,29 @@ class ClassroomsController < ApplicationController
         @classroom = @school.classrooms.new(classroom_number: classroom.classroom_name)
         if @classroom.save
           create_initial_section
-          render json: @classroom
+          render json: {success:{success:"yes",type:"success",display:"yes",message:"Classroom added"},data:{classroom:@classroom}}
         else
-          render json: '{"success":"no"}'
+          render json: {success:{success:"no",display:"yes",type:"error",message:"Unable to create classroom"},data:{}}
         end
         #this means classroom already exists
        else
-        render json: '{"success":"no"}'   
+        render json: {success:{success:"no",display:"yes",type:"error",message:"Classroom already exists"},data:{}}   
       end
       #this means they fucked up
     else
-      render json: '{"success":"no"}'
+      render json: {success:{success:"no",diplay:"yes",type:"error",message:"Unable to process your request./nTry Again"},data:{}}
     end
    end
   
   def destroy
    @classroom.destroy
-   render json: "{}"
- 
+   render json: {success:{success:"yes",type:"success",display:"yes",message:"Classroom destroyed"},data:{}}
   end
   
   private
-  def set_school
-    @school = School.find(session[:school_id])
-  end
+  #def set_school
+  #  @school = School.find(session[:school_id])
+  #end
   
   #def classroom_params
   #  params.require(:classroom).permit(:classroom_number)

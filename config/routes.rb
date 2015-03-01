@@ -31,6 +31,7 @@ get 'template/checklogin', to: 'template#checklogin'
 root 'schools#product'  
 #new routes
 get 'sessions/checklogin', to: 'sessions#checklogin'
+resources :teachers
 resources :sections, only: [:index]
 resources :classrooms, only: [:index,:show,:destroy,:create] do
   resources :sections, only: [:index,:show,:destroy,:create]
