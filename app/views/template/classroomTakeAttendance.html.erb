@@ -1,0 +1,15 @@
+<a href ng-click="markAllAbsent()">Mark all absent </a>
+<a href ng-click="markAllPresent()">Mark all present </a>
+
+<h3><ul ng-repeat="eachStudent in data">
+	<li><a href ng-click="toggleAttendance(eachStudent)">{{eachStudent.name}}</a>{{eachStudent.attendance}}
+</li>
+
+</ul></h3>
+<br/>
+<div ng-show="isProgressBarActive">
+<h3>Attendance submitted 
+    <progressbar max="max" value="dynamic"><span style="color:black; white-space:nowrap;">{{dynamic}} / {{max}}</span></progressbar>
+    </div>
+<button class="btn btn-primary" ng-click="save()" ng-disabled="isSaveDisabled">{{saveStatus}}</button>
+<button class="btn btn-danger" ng-click="cancel()">Cancel</button>

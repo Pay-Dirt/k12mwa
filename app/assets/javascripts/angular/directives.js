@@ -102,8 +102,7 @@ module.directive('classroomData',function(){
 					console.log(classroom.id,section.id);
 					$scope.classroomId=classroom.id;
 					$scope.sectionId = section.id;
-					
-					$location.path('/classroom/'+$scope.classroomId+'/section/'+$scope.sectionId);
+					$location.path('/schools/classroom/'+$scope.classroomId+'/section/'+$scope.sectionId);
 				};
 				
 		}

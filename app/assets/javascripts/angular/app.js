@@ -39,12 +39,21 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		controller:'teacherEditCtrl'
 	})
 	.when('/schools/classroom/:classroomId/section/:sectionId',{
-		templateUrl:'/template/classroom_section',
+		templateUrl:'/template/classroomHome',
 		controller:'classroomSectionCtrl'
 	})
-	.when('/classroomHome',{
-		templateUrl:'/template/classroom_home',
-		controller:'classroomHomeCtrl'
+	.when('/schools/classroom/:classroomId/section/:sectionId/classroomHome',{
+		templateUrl:'/template/classroomHome',
+		controller:'classroomSectionCtrl'
 	})
+	.when('/schools/classroom/:classroomId/section/:sectionId/classroomTakeAttendance',{
+		templateUrl:'/template/classroomTakeAttendance',
+		controller:'classroomAttendanceCtrl'
+	})
+	.when('/schools/classroom/:classroomId/section/:sectionId/classroomShowAttendance',{
+		templateUrl:'/template/classroomShowAttendance',
+		controller:'classroomAttendanceCtrl'
+	})
+	
 	.otherwise({redirectTo: '/checklogin'});
 }]);

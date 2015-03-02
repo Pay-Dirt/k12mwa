@@ -28,6 +28,9 @@ get 'template/classroom_section',to: 'template#classroom_section'
 get 'template/sections', to: 'template#sections'
 get 'template/login', to: 'template#login'
 get 'template/checklogin', to: 'template#checklogin'
+get 'template/classroomHome', to:    'template#classroomHome'
+get 'template/classroomTakeAttendance', to:    'template#classroomTakeAttendance'
+get 'template/classroomShowAttendance', to:    'template#classroomShowAttendance'
 #custom template end here
 
 root 'schools#product'  
@@ -36,7 +39,9 @@ get 'sessions/checklogin', to: 'sessions#checklogin'
 resources :teachers
 resources :sections, only: [:index]
 resources :classrooms, only: [:index,:show,:destroy,:create] do
-  resources :sections, only: [:index,:show,:destroy,:create]
+  resources :sections, only: [:index,:show,:destroy,:create] do
+    resources :students
+  end
 end
 
 #these routes are to be used when we request schools/:id
