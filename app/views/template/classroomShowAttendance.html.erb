@@ -1,0 +1,42 @@
+<div class="container">
+<!--here we will show the list of students in the class as side navbar with 
+	 default as all selected -->
+	 
+<div class="row-offcanvas row-offcanvas-left">
+	<!--here we will show the list of students in the class as side navbar with 
+	 default as all selected -->
+
+  <div id="sidebar" class="sidebar-offcanvas">
+      <div class="col-md-2">
+          <ul class="nav nav-pills nav-stacked">
+          
+          <br/>
+          <li class="active"><a href="#classrooms" ng-click="">Show All</a></li>
+          <div ng-repeat="eachStudent in data">
+          <li><a href="#"  ng-click="">{{eachStudent.name}}</a><img ng-src="{{eachStudent.photoUrl}}"></li>
+
+          </div>
+        </ul>
+      </div>
+  </div>
+
+</div><!--/row-offcanvas -->
+
+	 
+</div>
+<div class="col-md-8">
+	Choose Date:
+		<select name="attendanceDateRange" ng-model="attendanceDateRange">
+		<option value="Today" selected>Today</option>
+		<option value="Yesterday">Yesterday</option>
+		<!-- now here we will show the list of months in which attendance has already been taken-->
+		
+	
+		<option value="selectedDateRange" >Choose date range</option>
+	</select>
+	{{attendanceDateRange}}
+	<div ng-hide="attendanceDateRange!=selectedDateRange">
+		custom date selected
+		</div>
+</div>
+</div>

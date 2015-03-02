@@ -11,7 +11,11 @@ var teacherCtrl = angular.module('schoolApp').controller('teacherCtrl',['$scope'
 	Teacher.all({},function(data){
 		//console.log(data);
 		Error.parse(data,function(data){
-			$rootScope.teachers = data.teachers;
+			if(data.teachers.length==0)
+				$rootScope.teachers=[];
+			else
+				$rootScope.teachers = data.teachers;
+			
 		},function(data){});
 		//if(data.length>0){$scope.isTeacherPresent = true;}
 		//else{$scope.isTeacherPresent = false;}
