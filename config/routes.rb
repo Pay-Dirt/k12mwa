@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :attendances
+
   resources :students
   resources :sessions, only: [:create,:destroy]  
 

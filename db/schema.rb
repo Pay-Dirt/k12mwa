@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226171116) do
+ActiveRecord::Schema.define(version: 20150301184151) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -21,6 +21,20 @@ ActiveRecord::Schema.define(version: 20150226171116) do
   end
 
   add_index "accounts", ["user_id"], name: "index_accounts_on_user_id"
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "school_id"
+    t.integer  "section_id"
+    t.date     "date"
+    t.boolean  "attendance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "attendances", ["school_id"], name: "index_attendances_on_school_id"
+  add_index "attendances", ["section_id"], name: "index_attendances_on_section_id"
+  add_index "attendances", ["student_id"], name: "index_attendances_on_student_id"
 
   create_table "classrooms", force: :cascade do |t|
     t.string   "classroom_number"
@@ -60,8 +74,9 @@ ActiveRecord::Schema.define(version: 20150226171116) do
     t.string   "name"
     t.integer  "max_marks"
     t.boolean  "is_graded"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "classroom_number"
   end
 
   create_table "default_sub_subjects", force: :cascade do |t|

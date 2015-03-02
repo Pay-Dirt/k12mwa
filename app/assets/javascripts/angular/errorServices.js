@@ -8,6 +8,7 @@ errorServices.factory('Error',['$location','Notification','UserSessionData',func
 			var errorData = data.success;
 			//console.log(data);
 			//here implement methods to show or delete error
+			//console.log(errorData.type);
 				if(errorData.display=="yes"){
 					switch(errorData.type){
 					case "success":
@@ -19,6 +20,10 @@ errorServices.factory('Error',['$location','Notification','UserSessionData',func
 					case "warning":
 						Notification.warning({message:errorData.message,delay:3000});
 						break;
+						}
+				}
+				
+				switch(errorData.type){
 					case "authFail":
 						Notification.warning({message:"You are being redirected to login page",delay:1000});
 						setTimeout(function(){
@@ -30,8 +35,8 @@ errorServices.factory('Error',['$location','Notification','UserSessionData',func
 						Notification.warning({message:"You are not authorise for this task.",delay:1000});
 						$location.path('/invalidAccess');
 						break;
-					}
 				}
+				
 			if(errorData.success=="yes")
 				success(originalData);
 			else
