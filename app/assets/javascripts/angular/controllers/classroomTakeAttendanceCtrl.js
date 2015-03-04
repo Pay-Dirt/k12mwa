@@ -1,7 +1,8 @@
-angular.module('schoolApp').controller('classroomAttendanceCtrl',['$scope','$rootScope','$routeParams','ClassroomSectionStudents','Error','Section','Attendance',function($scope,$rootScope,$routeParams,ClassroomSectionStudents,Error,Section,Attendance){
+angular.module('schoolApp').controller('classroomTakeAttendanceCtrl',['$scope','$rootScope','$routeParams','ClassroomSectionStudents','Error','Section','Attendance','$filter','$location',function($scope,$rootScope,$routeParams,ClassroomSectionStudents,Error,Section,Attendance,$filter,$location){
 	$scope.classroomId=$routeParams.classroomId;
 	$scope.sectionId=$routeParams.sectionId;
-	$scope.date = new Date();
+	$scope.date = $filter('date')(new Date(), 'yyyy-MM-dd');
+	console.log("hi"+$scope.date);
 	$scope.saveStatus="Save";
 	$scope.dynamic=0;
 	var classroomSectionStudent = function(){
@@ -32,6 +33,7 @@ angular.module('schoolApp').controller('classroomAttendanceCtrl',['$scope','$roo
 	$scope.markAllPresent = function(){
 		for(x in $scope.data){
 			$scope.data[x].attendance="Present";
+			
 		}
 	};
 	$scope.save = function(){
@@ -40,8 +42,11 @@ angular.module('schoolApp').controller('classroomAttendanceCtrl',['$scope','$roo
 		$scope.isProgressBarActive=true;
 		for(x in $scope.data)
 			{
-		       	var data = '{"student_id":"' + $scope.data[x].id +'"section_id":"' + $scope.data[x].section_id +'"attendance":"'+$scope.data[x].attendance+'"date":"'+$scope.date +'"}';
-		        Attendance.create({},data,function(data){
+		       		var data = $scope.data[x];
+		       		data.student_id = $scope.data[x].id;
+		       		data.classroom_id = $routeParams.classroomId;
+		       		data.date = $scope.date;
+					Attendance.create({},data,function(data){
 		        	Error.parse(data,function(data){
 		        		//this is the case of success
 		        		//here we have to do the thing in case the attendance si successfully submitted
@@ -51,10 +56,13 @@ angular.module('schoolApp').controller('classroomAttendanceCtrl',['$scope','$roo
 		        	});
 		        },function(data){$scope.error=data;});	
 			}
+		$location.path('schools/classroom/'+$scope.classroomId+'/section/'+$scope.sectionId+'/classroomShowAttendance');
 		
 	};
 	$scope.cancel = function(){
 		
 		
 	};
+
+	
 }]);

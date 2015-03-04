@@ -4,5 +4,6 @@ class Section < ActiveRecord::Base
   has_many :teachings
   has_many :lectures, through: :teachings
   has_many :students
+  has_many :attendances
   validates :section, presence: true
 end

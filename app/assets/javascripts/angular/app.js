@@ -48,11 +48,11 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 	})
 	.when('/schools/classroom/:classroomId/section/:sectionId/classroomTakeAttendance',{
 		templateUrl:'/template/classroomTakeAttendance',
-		controller:'classroomAttendanceCtrl'
+		controller:'classroomTakeAttendanceCtrl'
 	})
 	.when('/schools/classroom/:classroomId/section/:sectionId/classroomShowAttendance',{
 		templateUrl:'/template/classroomShowAttendance',
-		controller:'classroomAttendanceCtrl'
+		controller:'classroomShowAttendanceCtrl'
 	})
 	
 	.otherwise({redirectTo: '/checklogin'});

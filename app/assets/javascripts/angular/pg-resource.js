@@ -25,7 +25,26 @@ resourceServices.factory('Resource',['$http',function($http){
 					}
 					finalUrl= finalUrl.replace(":id","");
 					return finalUrl;
+					
 				}
+				
+				//function to map the qdata and urldata to url with query to be used in get methods
+				function buildqUrl(urlData,qData){
+					var qUrl = buildUrl(urlData);
+					
+					var keys = qData.keys;
+					keys= keys.trim();
+					
+					keys = keys.split(":");
+					var qString = "?";
+					for(x in keys){
+						if(x==0){qString = qString+ keys[x]+"=" + qData[keys[x]];}
+						else{qString = qString + "&" + keys[x] +"="+ qData[keys[x]];}
+					}
+			console.log(qUrl+qString);
+					return qUrl+qString;
+				}
+				
 				
 			return {
 				//defining http service for all
@@ -37,6 +56,12 @@ resourceServices.factory('Resource',['$http',function($http){
 				//this will return the data of a given id
 				find: function(urlData,data,success,error){
 					$http.get(buildUrl(urlData),data).success(function(data,responseHeaders){
+						success(data);
+					}).error(function(data){error(data);});
+				},
+				//this will process the data with query string
+				qfind: function(urlData,qData,success,error){
+					$http.get(buildqUrl(urlData,qData)).success(function(data,responseHeaders){
 						success(data);
 					}).error(function(data){error(data);});
 				},

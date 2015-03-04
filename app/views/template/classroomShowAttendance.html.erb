@@ -1,7 +1,15 @@
-<div class="container">
+<div class="container">hi {{attendances_data.length}}
+	
 <!--here we will show the list of students in the class as side navbar with 
 	 default as all selected -->
-	 
+	 <div>
+	 	<!--This div will contain the select bar to choose the attendance range whose data is to be displayed-->
+	Choose date:<select name="dateRange" ng-model="dateRange">
+		<option ng-option="Today" selected>Today</option>
+		<option ng-value="Yesterday">Yesterday</option>
+		<option ng-value="month.month_number" ng-repeat="month in months">{{month.month_name}}</option>
+		</select> 	
+	 </div>
 <div class="row-offcanvas row-offcanvas-left">
 	<!--here we will show the list of students in the class as side navbar with 
 	 default as all selected -->
@@ -11,10 +19,9 @@
           <ul class="nav nav-pills nav-stacked">
           
           <br/>
-          <li class="active"><a href="#classrooms" ng-click="">Show All</a></li>
-          <div ng-repeat="eachStudent in data">
-          <li><a href="#"  ng-click="">{{eachStudent.name}}</a><img ng-src="{{eachStudent.photoUrl}}"></li>
-
+          <li class="active"><a href ng-click="studentSelected('all')">Show All</a></li>
+          <div ng-repeat="student in students_data">
+          <li><a href style="display:block" ng-click="studentSelected(student.id)">{{student.name}}</a><img ng-src="{{student.photoUrl}}"></li>
           </div>
         </ul>
       </div>
@@ -23,20 +30,43 @@
 </div><!--/row-offcanvas -->
 
 	 
+<div class="col-md-1"></div>
+<div class="col-md-7">
+	<div ng-show="attendances_data.length"><!--shows when attendance is marked-->
+	<div ng-repeat="student in students_data">
+	        <div ng-repeat="attendance in attendances_data | filter:{student_id:student.id}">
+             	<div ng-show="displayCase==1"><!-- case of particular student on particular day-->
+             		<div class="block col-md-1" ng-click="">
+             			<table>
+             				
+             					<tr><td>{{student.photoUrl}}</td></tr>
+             					<tr><td>{{student.name}}</td></tr>
+             					<tr><td>{{attendance.attendance}}</td></tr>
+             			</table>
+             		</div>
+             	</div>
+             	<div ng-show="displayCase==2"><!--particular student particular month-->
+             		<div class="block col-md-1" ng-click="">
+             			<table>
+             				<tr><td>{{attendance.date}}</td></tr>
+             				<tr><td>{{attendance.attendance}}</td></tr>
+             			</table>
+             		</div>
+             	</div>
+             	<div ng-show="displayCase==3"><!--all student particular day-->
+             		<div class="block col-md-1" ng-click="">
+             			<table>
+             				<tr><td>{{student.photoUrl}}</td></tr>
+             				<tr><td>{{student.name}}</td></tr>
+             				<tr><td>{{attendance.attendance}}</td></tr>
+             			</table>
+             		</div>	
+             	</div>	
+
 </div>
-<div class="col-md-8">
-	Choose Date:
-		<select name="attendanceDateRange" ng-model="attendanceDateRange">
-		<option value="Today" selected>Today</option>
-		<option value="Yesterday">Yesterday</option>
-		<!-- now here we will show the list of months in which attendance has already been taken-->
-		
-	
-		<option value="selectedDateRange" >Choose date range</option>
-	</select>
-	{{attendanceDateRange}}
-	<div ng-hide="attendanceDateRange!=selectedDateRange">
-		custom date selected
-		</div>
+
 </div>
 </div>
+	<div ng-show="!attendances_data.length">
+		<h1>NO attendance marked in the selected date range</h1>
+	</div>

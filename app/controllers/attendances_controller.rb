@@ -1,21 +1,42 @@
 class AttendancesController < ApplicationController
   before_action :check_authentication
   before_action :set_school
-  before_action :set_section, only: [:create]
-  before_action :set_student, only: [:update,:destroy]
+  before_action :set_student, only: [:create,:update,:destroy]
   def index
-    if params[:section_id]
-      @attendance = @school.sections(params[:section_id]).attendances
+    if params[:attendanceOf]
+      if params[:attendanceOf] == "month"
+        month = params[:month]
+        if params[:student_id]
+          @attendances = Student.find(params[:student_id]).attendances.where("date like ? ",month + "-%")
+        else
+          @attendances = Section.find(params[:section_id]).attendances.where("date like ?",month+"-%")
+       end
+       render json: {success:{success:"yes",type:"success",display:"no"},data:{attendances:@attendances}}
+      elsif params[:attendanceOf] == "day"
+        date = params[:date]
+        if(params[:student_id])
+        @attendances = Student.find(params[:student_id]).attendances.where("date=?",date)
+        else
+          @attendances = Section.find(params[:section_id]).attendances.where("date=?",date)
+        end
+        render json: {success:{success:"yes",type:"success",display:"no"},data:{attendances:@attendances}}
+      end
+    elsif params[:section_id]
+      @attendance = @school.classrooms.find(params[:classroom_id]).sections.find(params[:section_id]).attendances
       render json: {success:{success:"yes",display:"no",type:"success"},data:{attendance:@attendance}}
     elsif params[:student_id]
-      @attendance = @school.students(params[:student_id]).attendances
+      @attendance = @school.students.find(params[:student_id]).attendances
       render json: {success:{success:"yes",display:"yes",type:"success"},data:{attendance:@attendance}}
+    else
+      render json: {}
     end
+      
   end
   
   def create
-    @attendance = @section.attendances.new(attendance_params)
-    if attendance.save
+    @attendance = @student.attendances.new(attendance_params)
+    @attendance.section = @school.classrooms.find(params[:classroom_id]).sections.find(params[:section_id])
+    if @attendance.save
       render json: {success:{success:"yes",display:"no",type:"success"},data:{attendance:@attendance}}
     else
       render json: {success:{success:"no",display:"no",type:"error"},data:{attendance:@attendance}}
@@ -23,19 +44,17 @@ class AttendancesController < ApplicationController
   end
   
   def update
-   @attendance = @student.attendace 
+   @attendance = @student.attendance 
   end
   
   private
-  def set_section
-    @section = @school.sections.find(params[:section_id])
-  end
-  
   def set_student
-    @student = @school.find(params[:student_id])
+    @student = @school.classrooms.find(params[:classroom_id]).sections.find(params[:section_id]).students.find(params[:student_id])
   end
   
   def attendance_params
-    params.require(:attendance).permit(:student_id,:attendance,:date)
+    params.permit(:student_id,:attendance,:date)
   end
 end
+
+
