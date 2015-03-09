@@ -2,7 +2,8 @@
 class SectionsController < ApplicationController
   before_action :check_authentication
   before_action :set_school
-  before_action :set_classroom, only: [:create,:destroy,:show]
+  before_action :set_classroom, only: [:create,:destroy,:show,:update]
+  before_action :set_section, only: [:update]
   
   def index
     if params[:classroom_id]
@@ -11,6 +12,14 @@ class SectionsController < ApplicationController
     else
       @sections = Section.order(section: :asc).all
       render json: {success:{success:"yes",type:"success",display:"no",message:"Classroom loaded"},data:{sections:@sections}}
+    end
+  end
+  
+  #this will give detail of that section
+  def show
+    @section = @school.classrooms.find(params[:classroom_id]).sections.find(params[:id])
+    if @section
+      render json: {success:{success:"yes",display:"no",type:"success"},data:{section:@section}}
     end
   end
  
@@ -45,6 +54,14 @@ class SectionsController < ApplicationController
     end
   end
   
+  #to update section details
+  def update
+    if @section.update(section_params)
+      render json: {success:{success:"yes",type:"success",display:"no"},data:{section:@section}}
+    else
+      render json: {success:{success:"no",type:"error",display:"yes",message:"Unable to assign classteacher"},data:{}}
+    end
+  end
   
   private
   def set_classroom
@@ -55,5 +72,14 @@ class SectionsController < ApplicationController
   def last_section_find
     var_last_section = @classroom.sections.order(section: :desc).first
   end
+  
+  def section_params
+    params.require(:section).permit(:teacher_id)
+  end
+  
+  def set_section
+    @section = @classroom.sections.find(params[:id])
+  end
+    
     
 end

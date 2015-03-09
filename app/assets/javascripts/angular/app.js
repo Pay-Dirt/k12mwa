@@ -31,10 +31,10 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		controller: 'teacherCtrl'
 	})
 	.when('/schools/teacher/:teacherId',{
-		templateUrl:'teacher_profile.html',
-		controller:'teacherCtrl'
+		templateUrl:'template/teacher_profile',
+		controller:'teacherProfileCtrl'
 	})
-	.when('/teacher/:teacherId/edit',{
+	.when('/schools/teacher/:teacherId/edit',{
 		templateUrl:'teacher_form.html',
 		controller:'teacherEditCtrl'
 	})

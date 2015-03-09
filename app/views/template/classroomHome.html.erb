@@ -1,7 +1,19 @@
 <h1>{{classroomId}}</h1>
 
-<h3><ul ng-repeat="eachStudent in data">
+<h3><ul ng-repeat="eachStudent in students">
 	<li><a href ng-click="">{{eachStudent.name}}</a></li>
 	<!--	<button ng-click="toggleCustom()" class="{{buttonClass}}">{{buttonName}}</button>-->
 	
 </ul></h3>
+<div ng-include="turl"></div>
+<script type="text/ng-template" id="assignteacher.html">
+
+	<select ng-model="newClassTeacher" ng-options="teacher as teacher.name for teacher in teachers"></select>
+	<button ng-click="assignClassTeacher(newClassTeacher)">Assign</button>	
+</script>
+<script type="text/ng-template" id="showct.html">
+	
+	<p>Classteacher: {{classTeacher.name}}</p>
+	<button ng-click="loadUpdate()">Update</button>
+	<button ng-click="removeTeacher()">Remove</button>
+</script>

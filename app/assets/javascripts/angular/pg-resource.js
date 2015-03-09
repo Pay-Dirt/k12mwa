@@ -41,7 +41,7 @@ resourceServices.factory('Resource',['$http',function($http){
 						if(x==0){qString = qString+ keys[x]+"=" + qData[keys[x]];}
 						else{qString = qString + "&" + keys[x] +"="+ qData[keys[x]];}
 					}
-			console.log(qUrl+qString);
+					console.log(qUrl+qString);
 					return qUrl+qString;
 				}
 				
@@ -54,8 +54,8 @@ resourceServices.factory('Resource',['$http',function($http){
 					}).error(function(data){error(data);});
 				},
 				//this will return the data of a given id
-				find: function(urlData,data,success,error){
-					$http.get(buildUrl(urlData),data).success(function(data,responseHeaders){
+				find: function(urlData,success,error){
+					$http.get(buildUrl(urlData)).success(function(data,responseHeaders){
 						success(data);
 					}).error(function(data){error(data);});
 				},

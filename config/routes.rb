@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 resources :default_classrooms, only: [:index]
 
 #custom template start here
+get 'template/teacher_profile', to: 'template#teacher_profile'
 get 'template/classrooms', to: 'template#classrooms'
 get 'template/teacher', to: 'template#teacher'
 get 'template/classroom_section',to: 'template#classroom_section'
@@ -39,7 +40,7 @@ get 'sessions/checklogin', to: 'sessions#checklogin'
 resources :teachers
 resources :sections, only: [:index]
 resources :classrooms, only: [:index,:show,:destroy,:create] do
-  resources :sections, only: [:index,:show,:destroy,:create] do
+  resources :sections do
     resources :students
   end
 end
