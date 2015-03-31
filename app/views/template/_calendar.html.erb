@@ -1,0 +1,18 @@
+<script type="text/ng-template" id="calendar.html">
+<div class="col-md-7">
+<div ng-show="classroomDefined">
+<a ng-click="changeMonth('previous')"><div class="col-md-1">Previous</div></a>
+<div class="col-md-4"></div>
+<div class="col-md-1">{{monthName}}{{year}}</div><div class="col-md-4"></div>
+<a ng-click="changeMonth('next')"><div class="col-md-1">Next</div></a>
+<table class="table">
+	<th ng-repeat="day in days">{{day}}</th>
+	<tr ng-repeat="r in rows" ng-model="date_of_month">
+		<td ng-repeat="t in r"  tooltip="{{tooltipDisplay(t)}}" tooltip-append-to-body='true' ng-click="clickme({t:t,c:'aa'})" ng-class="{isEvent:checkEvent(t),enableClick:(!checkHoliday(t)&&!checkDate(t)),isHoliday:checkHoliday(t),isSunday:checkSunday(t),datePassed:checkDate(t)}">
+		{{t}}
+		</td>
+	</tr>
+</table>
+</div>
+</div>
+</script>

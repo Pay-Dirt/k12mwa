@@ -1,7 +1,7 @@
 class AttendancesController < ApplicationController
   before_action :check_authentication
   before_action :set_school
-  before_action :set_student, only: [:create,:update,:destroy]
+  before_action :set_student, only: [:create,:destroy]
   def index
     if params[:attendanceOf]
       if params[:attendanceOf] == "month"
@@ -35,6 +35,7 @@ class AttendancesController < ApplicationController
   
   def create
     @attendance = @student.attendances.new(attendance_params)
+    @attendance.school = @school
     @attendance.section = @school.classrooms.find(params[:classroom_id]).sections.find(params[:section_id])
     if @attendance.save
       render json: {success:{success:"yes",display:"no",type:"success"},data:{attendance:@attendance}}
@@ -44,7 +45,12 @@ class AttendancesController < ApplicationController
   end
   
   def update
-   @attendance = @student.attendance 
+   @attendance = @school.attendances.find(params[:id])
+   if @attendance.update(attendance_update_params)
+      render json: {success:{success:"yes",display:"yes",type:"success",message:"Attendance Successfully updated"},data:{attendance:@attendance}}
+    else
+      render json: {success:{success:"no",display:"no",type:"error"},data:{attendance:@attendance}}
+   end    
   end
   
   private
@@ -55,6 +61,10 @@ class AttendancesController < ApplicationController
   def attendance_params
     params.permit(:student_id,:attendance,:date)
   end
+  def attendance_update_params
+        params.permit(:attendance)
+  end
+  
 end
 
 

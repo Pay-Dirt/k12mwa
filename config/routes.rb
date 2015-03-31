@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  
+
+  resources :events
+
+  resources :examinations do
+    resources :exam_schemas
+  end
+
   resources :attendances
 
   resources :students
@@ -13,7 +21,7 @@ Rails.application.routes.draw do
 
   resources :sub_subjects
 
-  resources :main_subjects
+  
 
   resources :default_sub_subjects
 
@@ -29,9 +37,12 @@ get 'template/classroom_section',to: 'template#classroom_section'
 get 'template/sections', to: 'template#sections'
 get 'template/login', to: 'template#login'
 get 'template/checklogin', to: 'template#checklogin'
-get 'template/classroomHome', to:    'template#classroomHome'
-get 'template/classroomTakeAttendance', to:    'template#classroomTakeAttendance'
-get 'template/classroomShowAttendance', to:    'template#classroomShowAttendance'
+get 'template/classroomHome', to: 'template#classroomHome'
+get 'template/classroomTakeAttendance', to: 'template#classroomTakeAttendance'
+get 'template/classroomShowAttendance', to: 'template#classroomShowAttendance'
+get 'template/examination', to: 'template#examination'
+get 'template/selectedExam', to: 'template#selectedExam'
+get 'template/examSchemaEdit', to: 'template#examSchemaEdit'
 #custom template end here
 
 root 'schools#product'  
@@ -40,6 +51,7 @@ get 'sessions/checklogin', to: 'sessions#checklogin'
 resources :teachers
 resources :sections, only: [:index]
 resources :classrooms, only: [:index,:show,:destroy,:create] do
+  resources :main_subjects
   resources :sections do
     resources :students
   end

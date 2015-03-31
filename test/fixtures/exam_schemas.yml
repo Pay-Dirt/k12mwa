@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  MainSubject_id: 
+  Examination_id: 
+  exam_date: 2015-03-13 17:55:41
+  duration: 1
+
+two:
+  MainSubject_id: 
+  Examination_id: 
+  exam_date: 2015-03-13 17:55:41
+  duration: 1

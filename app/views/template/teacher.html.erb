@@ -5,7 +5,6 @@
 		<div ng-show="teachers.length">
 			<h1>teacher is present</h1>
 			<div ng-repeat="teacher in teachers">
-				
 				<teacher-data teacher="teacher"></teacher-data>	
 			</div>
 		<br/></br/>
@@ -23,6 +22,5 @@
 </div>
 		<button class="btn"><a href="#/teacher/new">Add</a></button>
 <%= render 'forms/teacher_form' %>
-
 <%= render 'template/teacher_delete'%>
 <%= render 'template/teacher_directive'%>

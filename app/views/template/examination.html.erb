@@ -1,0 +1,6 @@
+<div ng-show="examinations.length">
+	<div ng-repeat="examination in examinations">
+		<a href="#/schools/examination/{{examination.id}}">{{examination.name}}</a>
+	</div>
+</div>
+Examination name:<input type="text" ng-model="examination.name"><button ng-click="addExamination()">Add</button>

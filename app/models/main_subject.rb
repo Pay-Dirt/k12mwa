@@ -5,4 +5,5 @@ class MainSubject < ActiveRecord::Base
   #this will map the main subject to course via course_combinatios
   has_many :course_combinations
   has_many :courses, through: :course_combinations
+  has_many :exam_schemas
 end

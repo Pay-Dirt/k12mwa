@@ -20,7 +20,6 @@ module.directive('teacherData',function(){
 		templateUrl:'teacher_directive.html',
 		controller: function($scope,Teacher,$modal){
 			$scope.open = function (size,teacher) {
-				
 				$scope.teacherToDelete=teacher;
 				  var modalInstance = $modal.open({
 					  templateUrl: 'teacher_delete.html',

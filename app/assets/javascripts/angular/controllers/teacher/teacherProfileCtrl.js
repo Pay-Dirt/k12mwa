@@ -4,7 +4,7 @@ var teacherCtrl = angular.module('schoolApp').controller('teacherProfileCtrl',['
 	$scope.contactDisabled = true;
 	$scope.bFunction = "Add";
 	$scope.teacherId = $routeParams.teacherId;
-    Teacher.find({'id':$scope.teacherId},{},function(data){
+    Teacher.find({'id':$scope.teacherId},function(data){
     	Error.parse(data,function(data){
     		$scope.teacher = data.teachers;
         	$scope.newTeacher = data.teachers;

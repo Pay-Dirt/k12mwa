@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302121458) do
+ActiveRecord::Schema.define(version: 20150328194709) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -88,6 +88,40 @@ ActiveRecord::Schema.define(version: 20150302121458) do
   end
 
   add_index "default_sub_subjects", ["default_main_subject_id"], name: "index_default_sub_subjects_on_default_main_subject_id"
+
+  create_table "events", force: :cascade do |t|
+    t.date     "event_date"
+    t.string   "details"
+    t.string   "context"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "school_id"
+  end
+
+  add_index "events", ["school_id"], name: "index_events_on_school_id"
+
+  create_table "exam_schemas", force: :cascade do |t|
+    t.integer  "main_subject_id"
+    t.integer  "examination_id"
+    t.datetime "exam_date"
+    t.integer  "duration"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "classroom_id"
+  end
+
+  add_index "exam_schemas", ["classroom_id"], name: "index_exam_schemas_on_classroom_id"
+  add_index "exam_schemas", ["examination_id"], name: "index_exam_schemas_on_examination_id"
+  add_index "exam_schemas", ["main_subject_id"], name: "index_exam_schemas_on_main_subject_id"
+
+  create_table "examinations", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "school_id"
+  end
+
+  add_index "examinations", ["school_id"], name: "index_examinations_on_school_id"
 
   create_table "lectures", force: :cascade do |t|
     t.integer  "teacher_id"

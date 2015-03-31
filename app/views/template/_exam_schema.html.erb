@@ -1,0 +1,39 @@
+<script type="text/ng-template" id="exam_schema.html">
+<div ng-show="isCalendarActive">
+<div class="col-md-9">
+<a ng-click="changeMonth('previous')">Previous</a>
+{{monthName}}--{{year}}
+<a ng-click="changeMonth('next')">Next</a>
+<table>
+	<th ng-repeat="day in days">{{day}}</th>
+	<tr ng-repeat="r in rows" ng-model="date_of_month">
+		<td ng-repeat="t in r" ng-click="addEvent(t)">{{t}}</td>
+	</tr>
+</table>
+</div>
+</div>
+<div ng-show="isAddEvent">
+	<table>
+	<tr>	
+	<td>Subject:<select ng-model="subject.subject_selected" ng-options="subject as subject.name for subject in subjects_available"></select></td>
+	<td>Slot:<select ng-model="subject.slot"><option value="1">1</option><option value="2">2</option></select></td>
+	<td>Duration:<input type="text" ng-model="subject.duration"></td>
+	</tr>
+	<tr><td><button ng-click="saveEvent(subject)">Save</button></td>
+		<td><button ng-click="cancelEvent()">Cancel</button></td>
+	</tr>
+	</table>
+</div>
+<div ng-show="subjects_added.length">
+	<table>
+		<tr ng-repeat="subject in subjects_added">
+			<td>{{subject.name}}<span class="close" ng-click="subjects_added.splice($index,1);subjects_available.push(subject)">x</span></td>
+		</tr>
+	</table>
+<div ng-show="!subjects_available.length">
+	<button class="btn-default" ng-click="saveExam(subjects_added)">Add</button>
+	<button class="btn btn-danger"  ng-click="cancelExam()">Cancel</button>
+</div>
+
+</script>
+

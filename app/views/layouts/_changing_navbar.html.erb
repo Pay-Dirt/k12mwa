@@ -1,27 +1,18 @@
-<div ng-show="tab===1 && main===1" >
-<div class="navbar navbar-default" >
+<div ng-show="tab===1 && main===1">
+<div class="navbar navbar-default">
 	<div class="container">
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
-				<li class="active"><a ng-href="#/{{currentUrl}}/classroomHome">Homes</a></li>
-				<li class="dropdown" dropdown>
-					<a href class="dropdown-toggle" dropdown-toggle>Attendance <b class="caret"></b></a>
-					<ul class="dropdown-menu">
-						<li><a ng-href="#/{{currentUrl}}/classroomTakeAttendance">Take Attendance</a></li>
-						<li><a ng-href="#/{{currentUrl}}/classroomShowAttendance">Show Attendance</a></li>
-					</ul>
-				</li>
-				<li><a href>Test</a></li>
-				<li><a href>Broadcast Message</a></li>
+				<li class="active"><a ng-href="">Add exam</a></li>
+				<li><a href>Submit marks</a></li>
+				<li><a href>Generate result</a></li>
 				<li><a href>Invite Parents</a></li>
+				<li><a href>Edit Schedule</a></li>
 			</ul>
 		</div>
 	</div>
 
 </div>
-
-
-	
 	
 </div>
 
@@ -29,3 +20,17 @@
 <div ng-show="tab===3 && main===3">Teacher</div>
 <div ng-show="tab===4 && main===4">Notice</div>
 <div ng-show="tab===5 && main===5">Student</div>
+<div ng-show="tab===6 && main===6">
+<div class="navbar navbar-default">
+	<div class="container">
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a ng-href="#/{{currentUrl}}/classroomHome">Schedule</a></li>
+				<li><a href>Add Marks</a></li>
+				<li><a href>Generate Report Card</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+</div>

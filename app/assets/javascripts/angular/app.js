@@ -54,6 +54,18 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		templateUrl:'/template/classroomShowAttendance',
 		controller:'classroomShowAttendanceCtrl'
 	})
+	.when('/schools/examination',{
+		templateUrl: 'template/examination',
+		controller: 'examinationCtrl'
+	})
+	.when('/schools/examination/:examinationId',{
+		templateUrl:'template/selectedExam',
+		controller:'selectedExamCtrl'
+	})
+	.when('/schools/examination/:examinationId/edit',{
+		templateUrl:'template/examSchemaEdit',
+		controller:'selectedExamCtrl'
+	})
 	
 	.otherwise({redirectTo: '/checklogin'});
 }]);

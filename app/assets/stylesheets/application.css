@@ -35,3 +35,29 @@
 	padding-bottom:3px;
 	background-color:yellow;
 }
+.isEvent
+{
+	background-color:green;
+	color:#3071A9;
+}
+.datePassed
+{
+	background-color:#999999;  
+}
+.enableClick
+{
+	cursor: pointer;
+}
+.isever
+{
+	color: blue;
+}
+.isSunday
+{
+	background-color:#D58512;
+	color:#730E15;
+}
+.isHoliday
+{
+	background-color:red;
+}
