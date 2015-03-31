@@ -41,7 +41,7 @@ resourceServices.factory('Resource',['$http',function($http){
 						if(x==0){qString = qString+ keys[x]+"=" + qData[keys[x]];}
 						else{qString = qString + "&" + keys[x] +"="+ qData[keys[x]];}
 					}
-					console.log(qUrl+qString);
+					//console.log(qUrl+qString);
 					return qUrl+qString;
 				}
 				
