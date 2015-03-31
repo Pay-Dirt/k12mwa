@@ -5,7 +5,15 @@ class MainSubjectsController < ApplicationController
   
   def index
     @main_subjects = @classroom.main_subjects
-    render json: {success:{success:"yes",type:"success",display:"no"},data:{main_subjects:@main_subjects}}
+    @main_subjects.each do |main_subject|
+      if params[:practical] == "true"
+        sub_subject = main_subject.sub_subjects.where(is_practical:true)
+      else
+        sub_subject = main_subject.sub_subjects      
+      end
+      main_subject.sub_subjects_detail = sub_subject
+    end
+    render json: {success:{success:"yes",type:"success",display:"no"},data:{main_subjects:@main_subjects.as_json(:methods => :sub_subjects_detail)}}
   end
   
 
@@ -16,9 +24,11 @@ class MainSubjectsController < ApplicationController
     @main_subjects = @classroom.main_subjects.new(main_subject_params)
     if @main_subjects.save
       @sub_subjects = sub_subject_params
+      
       length = @sub_subjects.length
       count_sub_subjects = 0
       @sub_subjects.each do |sub_subject|
+        puts sub_subject
         if sub_subject[:is_practical] == false
           count_sub_subjects += 1
         end

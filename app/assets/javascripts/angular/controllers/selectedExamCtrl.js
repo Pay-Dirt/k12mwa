@@ -8,6 +8,10 @@ schoolApp.controller('selectedExamCtrl',['$scope','Classroom','Error','$rootScop
 	$scope.baseUrl="#/schools/examination/"+$routeParams.examinationId;
 	//this will request a new classroom data like subjects when the classroom selected changes
 	$scope.$watch('classroom',function(){
+		ClassroomMainSubjects.all({classroomId:$scope.classroom},function(data){
+			
+			Error.parse(data,function(data){$scope.mainsubjects=data;console.log(data);},function(data){});
+		},function(data){});
 		Classroom.find({},function(data){
 			Error.parse(data,function(data){$scope.classrooms=data.classrooms;},function(data){});
 		},function(data){});		

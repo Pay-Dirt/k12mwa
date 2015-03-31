@@ -6,4 +6,6 @@ class MainSubject < ActiveRecord::Base
   has_many :course_combinations, dependent: :destroy
   has_many :courses, through: :course_combinations
   has_many :exam_schemas
+  #adding sub_subjects to model
+  attr_accessor :sub_subjects_detail
 end
