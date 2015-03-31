@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302121458) do
+ActiveRecord::Schema.define(version: 20150327194718) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20150302121458) do
     t.integer  "default_main_subject_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.boolean  "is_practical"
   end
 
   add_index "default_sub_subjects", ["default_main_subject_id"], name: "index_default_sub_subjects_on_default_main_subject_id"
@@ -150,6 +151,7 @@ ActiveRecord::Schema.define(version: 20150302121458) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "main_subject_id"
+    t.boolean  "is_practical"
   end
 
   add_index "sub_subjects", ["main_subject_id"], name: "index_sub_subjects_on_main_subject_id"

@@ -1,5 +1,5 @@
 
-var schoolApp = angular.module('schoolApp',['ngRoute','schoolServices','errorServices','ui.bootstrap','ui-notification','authService','direct']);
+var schoolApp = angular.module('schoolApp',['ngRoute','schoolServices','errorServices','ui.bootstrap','ui-notification','authService','direct','checklist-model']);
 
 schoolApp.config(['$routeProvider',function($routeProvider){
 	$routeProvider
@@ -21,6 +21,10 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 	.when('/logout',{
 		templateUrl: 'template/logout',
 		controller: 'logoutCtrl'
+	})
+	.when('/schools/course',{
+		templateUrl: 'template/courses',
+		controller: 'courseCtrl'
 	})
 	.when('/teacher/new',{
 		templateUrl:'teacher_form.html',

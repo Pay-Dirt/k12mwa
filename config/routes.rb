@@ -3,13 +3,14 @@ Rails.application.routes.draw do
   resources :attendances
 
   resources :students
+  
   resources :sessions, only: [:create,:destroy]  
 
   resources :teachings
 
   resources :lectures
 
-  resources :courses
+  
 
   resources :sub_subjects
 
@@ -19,9 +20,10 @@ Rails.application.routes.draw do
 
   resources :default_main_subjects
 
-resources :default_classrooms, only: [:index]
+  resources :default_classrooms, only: [:index]
 
 #custom template start here
+get 'template/courses', to: 'template#courses'
 get 'template/teacher_profile', to: 'template#teacher_profile'
 get 'template/classrooms', to: 'template#classrooms'
 get 'template/teacher', to: 'template#teacher'
@@ -40,6 +42,8 @@ get 'sessions/checklogin', to: 'sessions#checklogin'
 resources :teachers
 resources :sections, only: [:index]
 resources :classrooms, only: [:index,:show,:destroy,:create] do
+  resources :courses
+  resources :main_subjects
   resources :sections do
     resources :students
   end

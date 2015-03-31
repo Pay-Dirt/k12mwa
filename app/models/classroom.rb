@@ -4,6 +4,7 @@ class Classroom < ActiveRecord::Base
   belongs_to :school
   has_many :sections, dependent: :destroy
   has_many :main_subjects
+  has_many :courses
   
   #validations are declared here
   #classroom_number must be an integer check if exists in classrooms_controller.rb

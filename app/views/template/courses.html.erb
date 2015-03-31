@@ -1,0 +1,56 @@
+<div class="container">
+	<select ng-model="setClassroom" ng-options="classroom as classroom.classroom_number for classroom in classrooms"></select>
+</div>
+<!--This will show subjects-->
+<div ng-include="turl"></div>
+<div ng-include="courseTemplate"></div>
+<script type="text/ng-template" id="add_subject.html">
+	<div class="container">
+		<p>Add Subject</p>
+		<table>
+			<tr><td><select ng-model="newSubject" ng-options="default_main_subject as default_main_subject.name for default_main_subject in default_main_subjects"></select></td></tr>
+			<tr><td>Name</td><td><input type="text" ng-model="newSubject.name" /></td></tr>
+			<tr><td>Max Marks</td><td><input type="number" ng-model="newSubject.max_marks" /></td></tr>
+			<tr><td>Is Graded</td><td><input type="checkbox" ng-model="newSubject.is_graded" /></td></tr>
+			<tr><td>Add Child Subjects: <input type="checkbox" ng-model="newSubject.is_sub_subjects" /></td></tr>
+			<tr ng-show="newSubject.is_sub_subjects"><td>Child Subjects:<span ng-click="newChildSubject(newSubject)">+</span></td></tr>
+			<tr ng-show="newSubject.is_sub_subjects" ng-repeat="sub_subject in newSubject.sub_subjects">
+				<td>{{$index+1}}</td>
+				<td><input type="checkbox" ng-model="sub_subject.is_practical" />Is this a practical/project?</td>
+				<td>Name:</td><td><input type="text" ng-model="sub_subject.name" /></td>
+				<td>Max Marks:</td><td><input type="text" ng-model="sub_subject.max_marks" /><span class="close" ng-click="newSubject.sub_subjects.splice($index,1)">x</span></td>
+			</tr>
+			<tr><td><button ng-click="submitSubject(newSubject,setClassroom.id,isMore)">Add</button></td></tr>
+		</table>
+	</div>
+</script>
+<!--This template is to show subjects that are added-->
+<script type="text/ng-template" id="show_subjects.html">
+	<div class="container">
+		<p>Subjects</p>
+		<p ng-show="!main_subjects.length">No subjects yet added.<button ng-click="add_subject_form()">Add One</button></p>
+		<table>
+			<tr ng-repeat="main_subject in main_subjects"><td>{{main_subject.name}}<span class="close" ng-click="removeSubject(main_subject,$index)">x</span></td></tr>
+		</table>
+		<div ng-include="add_more_subject"></div>
+		<button ng-click="add_more_subject_form()">Add More</button></p>
+	</div>
+</script>
+<!--This template contains list of courses-->
+<script type="text/ng-template" id="courseShow.html">
+	<div ng-show="!courses.length"><p>You have not created any course yet.</p></div>
+	<table ng-show="courses.length">
+		<tr ng-repeat="course in courses"><td>{{course.name}}<span class="close" ng-click="deleteCourse(course,$index)">x</span></td></tr>
+	</table>
+	<div ng-include="createCourseForm"></div>
+	<button ng-click="showCreateCourseForm()">Create Course</button>
+	<script type="text/ng-template" id="createCourseForm.html">
+		<input type="text" ng-model="newCourse.name" placeholder="Course name"/>
+		<div>
+			<label ng-repeat="course_subject in course_subjects">
+				<input type="checkbox" checklist-model="newCourse.course_subjects" checklist-value="course_subject.id" />{{course_subject.name}}
+			</label>
+		</div>
+		<button class="btn btn-default" ng-click="createCourse(newCourse)">Create</button><button class="btn btn-danger" ng-click="closeCreateCourseForm()">Cancel</button>
+	</script>
+</script>
