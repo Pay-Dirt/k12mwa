@@ -2,11 +2,13 @@ Rails.application.routes.draw do
 
   
 
+
   resources :events
 
   resources :examinations do
     resources :exam_schemas
-  end
+    resources :examination_results
+end
 
   resources :attendances
 

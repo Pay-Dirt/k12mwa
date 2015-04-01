@@ -77,7 +77,7 @@ module.directive('calendarEvent',function(){
 				$scope.mday=angular.copy(($scope.date)).getMonth();
 				$scope.year=angular.copy(($scope.date)).getFullYear();
 			    $scope.monthName = $scope.date.toLocaleString("en-us", { month: "long" });
-				cal(daysInMonth($scope.mday,$scope.year),firstday($scope.mday));
+				cal(daysInMonth($scope.mday,$scope.year),firstday($scope.date));
 				
 				//here we will define the type of class so that we can disable those dates which are less than current date
 			});
@@ -107,7 +107,7 @@ module.directive('calendarEvent',function(){
 					}
 				
 				$scope.date=new Date($scope.date);
-				
+				console.log($scope.date);
 			};
 			$scope.checkSunday=function(t)
 			{
@@ -141,12 +141,9 @@ module.directive('calendarEvent',function(){
      return $scope.eventName;
 		};
 
-			var firstday=function(mday)
+			var firstday=function(d)
 			{
-			 	var t = new Date();
-			 	t.setMonth(mday,1);
-			    t.setDate(1);
-			    return t.getDay();
+				return d.getDay();
 			};
 			var daysInMonth=function(month,year) {
 				return new Date(year, month+1, 0).getDate();
@@ -169,7 +166,7 @@ module.directive('calendarEvent',function(){
 					if(days<0){break;}
 				}
 			};
-			cal(daysInMonth($scope.mday,$scope.year),firstday($scope.mday,$scope.wday));			
+			cal(daysInMonth($scope.mday,$scope.year),firstday($scope.date));			
 
 			qdata={keys:"classroom_id",classroom_id:$scope.classroom};		
 			ExaminationExamSchemas.qfind({examinationId:$routeParams.examinationId},qdata,function(data){
