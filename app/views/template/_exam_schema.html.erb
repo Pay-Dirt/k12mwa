@@ -1,28 +1,21 @@
 <script type="text/ng-template" id="exam_schema.html">
-<div ng-show="isCalendarActive">
-</div>
-<div ng-show="isAddEvent">
-	<table>
-	<tr>	
-	<td>Subject:<select ng-model="subject.subject_selected" ng-options="subject as subject.name for subject in subjects_available"></select></td>
-	<td>Slot:<select ng-model="subject.slot"><option value="1">1</option><option value="2">2</option></select></td>
-	<td>Duration:<input type="text" ng-model="subject.duration"></td>
+<table class="table">
+	<th>Subject</th>
+	<th>Id</th>
+	<th>Date</th>
+	<th>Slot</th>
+	<th>Duration</th>
+	<tr ng-repeat="a in exam_subjects">
+		<td ng-model="examSchema[a].name">{{a.name}}</td>
+		<td ng-model="examSchema[a].subject_id">{{a.id}}</td>
+		<td ><input type="text" ng-model="examSchema[a].date" ng-click="selectDate(a)"></td>
+		<td><input type="text" ng-model="examSchema[a].slot"></td>
+		<td><input type="number" ng-model="examSchema[a].duration"></td>
 	</tr>
-	<tr><td><button ng-click="saveEvent(subject)">Save</button></td>
-		<td><button ng-click="cancelEvent()">Cancel</button></td>
-	</tr>
-	</table>
+</table>
+<div>
+	<button class="btn btn-default" ng-click="saveSchema(examSchema)">Save</button>
+	<button class="btn btn-danger" ng-click="cancelSchema()">Cancel</button>
 </div>
-<div ng-show="subjects_added.length">
-	<table>
-		<tr ng-repeat="subject in subjects_added">
-			<td>{{subject.name}}<span class="close" ng-click="subjects_added.splice($index,1);subjects_available.push(subject)">x</span></td>
-		</tr>
-	</table>
-<div ng-show="!subjects_available.length">
-	<button class="btn-default" ng-click="saveExam(subjects_added)">Add</button>
-	<button class="btn btn-danger"  ng-click="cancelExam()">Cancel</button>
-</div>
-
 </script>
 

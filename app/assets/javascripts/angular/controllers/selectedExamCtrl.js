@@ -1,10 +1,18 @@
 var schoolApp = angular.module('schoolApp');
-schoolApp.controller('selectedExamCtrl',['$scope','Classroom','Error','$rootScope','$filter','ClassroomMainSubjects','ExaminationExamSchemas','Examination','$routeParams',function($scope,Classroom,Error,$rootScope,$filter,ClassroomMainSubjects,ExaminationExamSchemas,Examination,$routeParams){
+schoolApp.controller('selectedExamCtrl',['$scope','Classroom','Error','$rootScope','$filter','ClassroomMainSubjects','ExaminationExamSchemas','Examination','$routeParams','Notification',function($scope,Classroom,Error,$rootScope,$filter,ClassroomMainSubjects,ExaminationExamSchemas,Examination,$routeParams,Notification){
 	$rootScope.main=6;
-
+	var examSchema=new Object();
+	$scope.selectDate=false;
 	$scope.check =function(m,k)
 	{
-		console.log("hi"+m+k);
+		console.log(m+k+"hioo");
+		var a=$scope.subject;
+		if(k==false)
+			{
+				$scope.examSchema[a].date=m;
+				$scope.selectDate=false;
+				
+			}
 	};
 	$scope.baseUrl="schools/examination/"+$routeParams.examinationId;
 	//this will request a new classroom data like subjects when the classroom selected changes
@@ -67,30 +75,11 @@ schoolApp.controller('selectedExamCtrl',['$scope','Classroom','Error','$rootScop
 		}
 	});
 
-	$scope.isAddEvent=false;
-	$scope.durations = [90,120,150,180];
-	
-	$scope.addEvent=function(day){
-		var k = ($scope.date).getDate();
-        var today = angular.copy($scope.date);
-		$scope.date = today.setDate(day);
-		$scope.date=new Date($scope.date);
-		if($scope.classroomSelected){
-		$scope.isAddEvent=true;}
-	};
-	$scope.saveEvent=function(subject){
-		$scope.subjects_added.push(subject);
-		for(subject in $scope.subjects_added)
-        	{
-        		$scope.subjects_added[subject].date=$scope.date;
-        		$scope.subjects_added[subject].classroom_id=$scope.classroom;
-        		$scope.subjects_added[subject].examination_id=$routeParams.examinationId;
-        		$scope.subjects_available.splice($scope.subjects_available[subject],1);
-        	}
-		$scope.isAddEvent=false;
-	};
-	$scope.cancelEvent=function(){
-		$scope.isAddEvent=false;
+	$scope.selectDate=function(data)
+	{
+		console.log(a+"huhk");
+		$scope.subject=data;
+		$scope.selectDate=true;
 	};
 	$scope.cancelExam=function(){
 		$scope.subjects_available=$scope.main_subjects;
@@ -111,60 +100,6 @@ schoolApp.controller('selectedExamCtrl',['$scope','Classroom','Error','$rootScop
 	
 
 	
-//this part controls the calendar which should not be altered	
-/*	$scope.currentDate=new Date();
-	$scope.date=new Date();
-	$scope.$watch('date',function(){
-		$scope.wday=($scope.date).getDay();
-		$scope.mday=($scope.date).getMonth();
-		$scope.year=($scope.date).getFullYear();
-	    $scope.monthName = $scope.date.toLocaleString("en-us", { month: "long" });
-		cal(daysInMonth($scope.mday,$scope.year),firstday($scope.mday));
-	});
-	$scope.changeMonth=function(type){
-		var m = ($scope.date).getMonth();
-		today = angular.copy($scope.date);
-		if(type=="previous"&&today.getMonth!=$scope.startingmonth)
-		$scope.date = today.setMonth(m-1);
-		else if(type=="next" &&today.getMonth!=$scope.startingmonth-1)
-		$scope.date = today.setMonth(m+1);
-		$scope.date=new Date($scope.date);
-	};
-	
- var firstday=function(mday)
-	{
-	 	var t = new Date();
-	 	t.setMonth(mday);
-	    t.setDate(1);
-	    return t.getDay();
-	};
-	var daysInMonth=function(month,year) {
-		return new Date(year, month+1, 0).getDate();
-	};*/
-	
-Classroom.all({},function(data){
-	Error.parse(data,function(data){$scope.classrooms=data.classrooms;},function(data){});
-	},function(data){});
-	/*$scope.days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-	//$scope.main=1;
-	var cal = function(days,start){
-		$scope.rows = new Array();
-		$scope.rows.push(new Array());
-		var d = 1;
-		var s = start;
-		var left = 7-start;
-		while(start>0){start--;var sp=" ";for(var k=start;k>=0;k--){sp=sp+" ";};$scope.rows[0].push(sp);}
-		while(left>0){left--;$scope.rows[0].push(d);d++;}
-		days = days-7+s;
-		var c = 1;
-		while(days>0){
-			$scope.rows.push(new Array());
-			for(var i=1;i<=7;i++){$scope.rows[c].push(d);d++;days--;if(days<=0){break;}}
-			c++;
-			if(days<0){break;}
-		}
-	};
-	cal(daysInMonth($scope.mday,$scope.year),firstday($scope.mday,$scope.wday));
-		*/
+
 	
 }]);

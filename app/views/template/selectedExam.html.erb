@@ -2,9 +2,9 @@
 <%= render 'template/calendar'%>
 Choose a classroom<select ng-options="classroom.id as classroom.classroom_number for classroom in classrooms"  ng-model="classroom"></select>
 <br/>
-
+<div ng-show="selectDate">
 <calendar-event my-click="check(t,c)"  classroom="classroom" startingmonth=1 startingyear=2015 aaA="aaA" ></calendar-event>
-{{exam_subjects}}
+</div>
 <div ng-show="exam_schemas.length">
 	<p>Exam schema has already been added.Click Edit to change the schema{{aaA}}</p>
 	<table >
