@@ -1,16 +1,5 @@
 <script type="text/ng-template" id="exam_schema.html">
 <div ng-show="isCalendarActive">
-<div class="col-md-9">
-<a ng-click="changeMonth('previous')">Previous</a>
-{{monthName}}--{{year}}
-<a ng-click="changeMonth('next')">Next</a>
-<table>
-	<th ng-repeat="day in days">{{day}}</th>
-	<tr ng-repeat="r in rows" ng-model="date_of_month">
-		<td ng-repeat="t in r" ng-click="addEvent(t)">{{t}}</td>
-	</tr>
-</table>
-</div>
 </div>
 <div ng-show="isAddEvent">
 	<table>

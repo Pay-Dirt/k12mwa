@@ -47,6 +47,7 @@ get 'template/classroomShowAttendance', to: 'template#classroomShowAttendance'
 get 'template/examination', to: 'template#examination'
 get 'template/selectedExam', to: 'template#selectedExam'
 get 'template/examSchemaEdit', to: 'template#examSchemaEdit'
+get 'template/examinationSlot', to: 'template#examinationSlot'
 #custom template end here
 
 root 'schools#product'  

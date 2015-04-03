@@ -1,28 +1,37 @@
 var schoolApp = angular.module('schoolApp');
 schoolApp.controller('selectedExamCtrl',['$scope','Classroom','Error','$rootScope','$filter','ClassroomMainSubjects','ExaminationExamSchemas','Examination','$routeParams',function($scope,Classroom,Error,$rootScope,$filter,ClassroomMainSubjects,ExaminationExamSchemas,Examination,$routeParams){
-	
+	$rootScope.main=6;
+
 	$scope.check =function(m,k)
 	{
 		console.log("hi"+m+k);
 	};
-	$scope.baseUrl="#/schools/examination/"+$routeParams.examinationId;
+	$scope.baseUrl="schools/examination/"+$routeParams.examinationId;
 	//this will request a new classroom data like subjects when the classroom selected changes
 	$scope.$watch('classroom',function(){
-		ClassroomMainSubjects.all({classroomId:$scope.classroom},function(data){
-			
-			Error.parse(data,function(data){$scope.mainsubjects=data;console.log(data);},function(data){});
-		},function(data){});
+
 		Classroom.find({},function(data){
 			Error.parse(data,function(data){$scope.classrooms=data.classrooms;},function(data){});
 		},function(data){});		
 		if($scope.classroom!=undefined){
 			$scope.classroomSelected=true;
-			$rootScope.main=6;$scope.classroomSelected=true;
-     		ClassroomMainSubjects.all({classroomId:$scope.classroom},function(data){
+			//$rootScope.main=6;
+			$scope.classroomSelected=true;
+	 		ClassroomMainSubjects.all({classroomId:$scope.classroom},function(data){
 			Error.parse(data,function(data){
 			$scope.main_subjects = data.main_subjects;
-			//$scope.subjects_available=data.main_subjects;
-			//$scope.subjects_added=new Array();
+			$scope.exam_subjects=new Array();
+			for(a in $scope.main_subjects)
+				{
+					for(x in $scope.main_subjects[a].sub_subjects_detail)
+						{
+						var examSubjects = new Object();
+									examSubjects.id=$scope.main_subjects[a].sub_subjects_detail[x].id;
+									examSubjects.name=$scope.main_subjects[a].sub_subjects_detail[x].name;
+									examSubjects.max_marks=$scope.main_subjects[a].sub_subjects_detail[x].max_marks;
+									$scope.exam_subjects.push(examSubjects);
+						}
+				}
 			},function(data){});
 		},function(data){
 			

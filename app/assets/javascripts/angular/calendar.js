@@ -13,10 +13,6 @@ module.directive('calendarEvent',function(){
 		},
 		templateUrl:'calendar.html',
 		controller:function($scope,$rootScope,ExaminationExamSchemas,Holiday,$routeParams,Error){
-			$scope.click=function(t)
-			{
-				var selecteddate=($scope.date).setDate;
-			};
 			$scope.$watch('classroom',function(){
 			if($scope.classroom!=undefined){	
 				$scope.classroomDefined=true;
@@ -32,19 +28,33 @@ module.directive('calendarEvent',function(){
 				$scope.checkDate=function(t)
 				{
 					if($scope.year<$scope.cy)
+						{
+						$scope.isDatePassed=true;
 						return true;
+						}
 					else if($scope.year==$scope.cy)
 						{
 							if($scope.mday<$scope.cm)
+								{
+								$scope.isDatePassed=true;
 								return true;
+								}
 							else if($scope.mday==$scope.cm)
 								{
 									if(t<$scope.cd)
+										{
+										$scope.isDatePassed=true;
 										return true;
-									else return false;
+										}
+									else {
+										$scope.isDatePassed=false;
+										return false;
+										}
+									}
 								}
-						}
-					else return false;
+						
+					else {$scope.isDatePassed=false;
+						return false;}
 				
 				};
 				//here we check if date is holiday or an exam
@@ -116,15 +126,22 @@ module.directive('calendarEvent',function(){
 			};
 			$scope.tooltipDisplay=function(t){
 			var today=angular.copy($scope.date);
-			$scope.eventDate=new Date(today.setDate(t));
-			$scope.eventName="";
+			today.setDate(t);
+			//today.setMinutes(0);
+			//today.setHours(0);
+			//today.setSeconds(0);
+			$scope.eventDate=(new Date(today));
+			$scope.eventDateInString=(new Date(today)).toISOString().substring(0, 10);
+			
+//			$scope.eventDate=new Date(today.setDate(t));
+			var eventName="";
 			if($scope.checkEvent(t)==true)
 			{
 				for(a in $scope.exam_schemas)
 					{
-						if((new Date($scope.exam_schemas[a].exam_date)).toISOString().substring(0, 10)==$scope.eventDate.toISOString().substring(0, 10))
+						if((new Date($scope.exam_schemas[a].exam_date)).toISOString().substring(0, 10)==$scope.eventDateInString)
 							{
-								$scope.eventName+=$scope.exam_schemas[a].main_subject_id;
+								eventName+=$scope.exam_schemas[a].main_subject_id;
 							}
 					}
 			}
@@ -132,13 +149,13 @@ module.directive('calendarEvent',function(){
 		{
 			for(a in $scope.holidaylist)
 			{
-				if($scope.holidaylist[a].event_date==$scope.eventDate.toISOString().substring(0, 10))
+				if($scope.holidaylist[a].event_date==$scope.eventDateInString)
 					{ 
-						$scope.eventName+=$scope.holidaylist[a].details;
+						eventName+=$scope.holidaylist[a].details;
 					}
 			}
 		}	
-     return $scope.eventName;
+     $scope.eventName=eventName;
 		};
 
 			var firstday=function(d)

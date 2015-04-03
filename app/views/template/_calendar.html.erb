@@ -8,7 +8,7 @@
 <table class="table">
 	<th ng-repeat="day in days">{{day}}</th>
 	<tr ng-repeat="r in rows" ng-model="date_of_month">
-		<td ng-repeat="t in r"  tooltip="{{tooltipDisplay(t)}}" tooltip-append-to-body='true' ng-click="clickme({t:t,c:'aa'})" ng-class="{isEvent:checkEvent(t),enableClick:(!checkHoliday(t)&&!checkDate(t)),isHoliday:checkHoliday(t),isSunday:checkSunday(t),datePassed:checkDate(t)}">
+		<td ng-repeat="t in r"  tooltip="{{eventName}}" tooltip-append-to-body='true' ng-mouseover="tooltipDisplay(t)" ng-click="clickme({t:eventDate,c:isDatePassed})" ng-class="{isEvent:checkEvent(t),enableClick:(!checkHoliday(t)&&!checkDate(t)),isHoliday:checkHoliday(t),isSunday:checkSunday(t),datePassed:checkDate(t)}">
 		{{t}}
 		</td>
 	</tr>

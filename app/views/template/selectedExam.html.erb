@@ -4,17 +4,20 @@ Choose a classroom<select ng-options="classroom.id as classroom.classroom_number
 <br/>
 
 <calendar-event my-click="check(t,c)"  classroom="classroom" startingmonth=1 startingyear=2015 aaA="aaA" ></calendar-event>
-
+{{exam_subjects}}
 <div ng-show="exam_schemas.length">
 	<p>Exam schema has already been added.Click Edit to change the schema{{aaA}}</p>
 	<table >
 		<th>Subject</th>
 		<th>Date</th>
+		<th>Slot</th>
 		<th>Duration</th>
 		<tr ng-repeat="exam_schema in exam_schemas" >
 			<td>{{exam_schema.subject_name}}</td>
 			<td>{{exam_schema.exam_date}}</td>
+			<td>{{exam_schema.slot}}</td>
 			<td>{{exam_schema.duration}}</td>
+			
 		</tr>
 	</table>	
 

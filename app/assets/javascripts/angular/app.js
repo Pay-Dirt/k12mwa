@@ -70,6 +70,10 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		templateUrl:'template/examSchemaEdit',
 		controller:'selectedExamCtrl'
 	})
+	.when('/schools/examination/:examinationId/examinationSlot',{
+		templateUrl:'template/examinationSlot',
+		controller:'selectedExamCtrl'
+	})
 	
 	.otherwise({redirectTo: '/checklogin'});
 }]);
