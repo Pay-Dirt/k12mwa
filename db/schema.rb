@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401155803) do
+ActiveRecord::Schema.define(version: 20150408045519) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -64,6 +64,16 @@ ActiveRecord::Schema.define(version: 20150401155803) do
 
   add_index "courses", ["classroom_id"], name: "index_courses_on_classroom_id"
 
+  create_table "courses_sections", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "section_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "courses_sections", ["course_id"], name: "index_courses_sections_on_course_id"
+  add_index "courses_sections", ["section_id"], name: "index_courses_sections_on_section_id"
+
   create_table "default_classrooms", force: :cascade do |t|
     t.string   "classroom_name"
     t.datetime "created_at",     null: false
@@ -102,18 +112,20 @@ ActiveRecord::Schema.define(version: 20150401155803) do
   add_index "events", ["school_id"], name: "index_events_on_school_id"
 
   create_table "exam_schemas", force: :cascade do |t|
-    t.integer  "main_subject_id"
     t.integer  "examination_id"
-    t.datetime "exam_date"
+    t.date     "exam_date"
     t.integer  "duration"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "classroom_id"
+    t.integer  "sub_subject_id"
+    t.integer  "slot_id"
   end
 
   add_index "exam_schemas", ["classroom_id"], name: "index_exam_schemas_on_classroom_id"
   add_index "exam_schemas", ["examination_id"], name: "index_exam_schemas_on_examination_id"
-  add_index "exam_schemas", ["main_subject_id"], name: "index_exam_schemas_on_main_subject_id"
+  add_index "exam_schemas", ["slot_id"], name: "index_exam_schemas_on_slot_id"
+  add_index "exam_schemas", ["sub_subject_id"], name: "index_exam_schemas_on_sub_subject_id"
 
   create_table "examination_results", force: :cascade do |t|
     t.integer  "student_id"
@@ -143,6 +155,7 @@ ActiveRecord::Schema.define(version: 20150401155803) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.boolean  "combined_section"
+    t.string   "name"
   end
 
   add_index "lectures", ["sub_subject_id"], name: "index_lectures_on_sub_subject_id"
@@ -177,6 +190,16 @@ ActiveRecord::Schema.define(version: 20150401155803) do
   end
 
   add_index "sections", ["classroom_id"], name: "index_sections_on_classroom_id"
+
+  create_table "slots", force: :cascade do |t|
+    t.integer  "examination_id"
+    t.time     "start_time"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "name"
+  end
+
+  add_index "slots", ["examination_id"], name: "index_slots_on_examination_id"
 
   create_table "students", force: :cascade do |t|
     t.integer  "roll_number"

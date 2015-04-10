@@ -3,12 +3,15 @@ Rails.application.routes.draw do
   
 
 
+  
+
   resources :events
 
   resources :examinations do
     resources :exam_schemas
+    resources :slots
     resources :examination_results
-end
+  end
 
   resources :attendances
 
@@ -46,8 +49,8 @@ get 'template/classroomTakeAttendance', to: 'template#classroomTakeAttendance'
 get 'template/classroomShowAttendance', to: 'template#classroomShowAttendance'
 get 'template/examination', to: 'template#examination'
 get 'template/selectedExam', to: 'template#selectedExam'
-get 'template/examSchemaEdit', to: 'template#examSchemaEdit'
 get 'template/examinationSlot', to: 'template#examinationSlot'
+get 'template/student_form', to: 'template#student_form'
 #custom template end here
 
 root 'schools#product'  

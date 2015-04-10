@@ -4,18 +4,24 @@ class ExamSchemasController < ApplicationController
   before_action :set_examination
   before_action :set_exam_schema, only: [:update,:destroy]
   before_action :exam_schema_params, only: [:create]
-  before_action :set_classroom
+  before_action :set_classroom, only: [:show,:create]
+  
   def index
-    @exam_schema = @examination.exam_schemas.where(classroom_id:params[:classroom_id])
-      render json: {success:{success:"yes",type:"success",display:"yes",message:"ok"},data:{exam_schema:@exam_schema}}  
+    @exam_schemas = @examination.exam_schemas.where(classroom_id:params[:classroom_id])
+    @exam_schemas.each do |exam_schema|
+      @sub_subject = SubSubject.find(exam_schema.sub_subject_id)
+      exam_schema.sub_subject_name = @sub_subject.name
+    end
+      render json: {success:{success:"yes",type:"success",display:"yes",message:"ok"},data:{exam_schema:@exam_schemas.as_json(:methods => :sub_subject_name)}}  
   end
  
   def create
     len  = @exam_schema_params.length
     @exam_schema_params.each do |exam_schema|
-      @exam_schema = @examination.exam_schemas.new
+      @exam_schema = @examination.exam_schemas.new(exam_date: exam_schema[:exam_date],duration: exam_schema[:duration])
+      @exam_schema.slot_id = Slot.find(exam_schema[:slot_id]).id
       @exam_schema.classroom = @classroom
-      @exam_schema.main_subject = @classroom.main_subjects.find(exam_schema[:id])
+      @exam_schema.sub_subject = @classroom.main_subjects.find(exam_schema[:main_subject_id]).sub_subjects.find(exam_schema[:sub_subject_id])
       if @exam_schema.save
         len = len -1
       end
@@ -48,11 +54,11 @@ class ExamSchemasController < ApplicationController
   end
   
   private
-  def set_classroom
-    @classroom = @school.classrooms.find(params[:classroom_id])
-  end
   def set_examination
     @examination = @school.examinations.find(params[:examination_id])
+  end
+  def set_classroom
+    @classroom = @school.classrooms.find(params[:classroom_id])
   end
   
   def set_exam_schema

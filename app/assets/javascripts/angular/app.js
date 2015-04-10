@@ -1,5 +1,4 @@
-
-var schoolApp = angular.module('schoolApp',['ngRoute','schoolServices','errorServices','ui.bootstrap','ui-notification','authService','direct','checklist-model']);
+var schoolApp = angular.module('schoolApp',['ngRoute','schoolServices','errorServices','ui.bootstrap','ui-notification','authService','direct','checklist-model','xeditable']);
 
 schoolApp.config(['$routeProvider',function($routeProvider){
 	$routeProvider
@@ -66,14 +65,18 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		templateUrl:'template/selectedExam',
 		controller:'selectedExamCtrl'
 	})
-	.when('/schools/examination/:examinationId/edit',{
-		templateUrl:'template/examSchemaEdit',
-		controller:'selectedExamCtrl'
-	})
 	.when('/schools/examination/:examinationId/examinationSlot',{
 		templateUrl:'template/examinationSlot',
 		controller:'selectedExamCtrl'
 	})
-	
+	.when('/schools/student/add',{
+		templateUrl:'template/student_form',
+		controller:'studentCtrl'
+	})
+	.when('/schools/student/view',{
+		templateUrl:'',
+		controller:'studentCtrl'
+	})
+
 	.otherwise({redirectTo: '/checklogin'});
 }]);

@@ -1,28 +1,50 @@
 <%= render 'template/exam_schema'%>
-<%= render 'template/calendar'%>
+<%= render  'template/calendar'%>
+
 Choose a classroom<select ng-options="classroom.id as classroom.classroom_number for classroom in classrooms"  ng-model="classroom"></select>
 <br/>
-<div ng-show="selectDate">
-<calendar-event my-click="check(t,c)"  classroom="classroom" startingmonth=1 startingyear=2015 aaA="aaA" ></calendar-event>
+<div ng-show="showCalendar">
+<calendar-event my-click="check(t,c)" classroom="classroom" startingmonth=1 startingyear=2015  ></calendar-event>
 </div>
 <div ng-show="exam_schemas.length">
-	<p>Exam schema has already been added.Click Edit to change the schema{{aaA}}</p>
-	<table >
+	<table class="table">
 		<th>Subject</th>
 		<th>Date</th>
 		<th>Slot</th>
 		<th>Duration</th>
-		<tr ng-repeat="exam_schema in exam_schemas" >
-			<td>{{exam_schema.subject_name}}</td>
+		<tr ng-repeat="exam_schema in exam_schemas" ng-mouseover="editControl('true',exam_schema.id)" ng-mouseout="editControl('false',exam_schema.id)">
+			<td>
+				<div ng-hide="isEnableEdit[exam_schema.id]">{{exam_schema.exam_date}}</div>
+				<div ng-show="isEnableEdit[exam_schema.id]"><input type="text" ng-model="editExamSchema.id"/></div>
+			</td>
 			<td>{{exam_schema.exam_date}}</td>
-			<td>{{exam_schema.slot}}</td>
+			<td>{{slotName[exam_schema.slot_id].name}}--{{slotName[exam_schema.slot_id].start_time}}</td>
 			<td>{{exam_schema.duration}}</td>
-			
+			<td>
+				<div ng-show="isEditActive[exam_schema.id]"><a ng-click="enableEdit(exam_schema.id,$index)">Edit</a></div>
+				<div ng-show="isEnableEdit[exam_schema.id]">
+					<button class="btn btn-default" ng-click="update(exam_schema)">Update</button>
+					<button class="btn btn-danger" ng-clcik="cancel()">Cancel</button>
+				</div>
+			</td>
 		</tr>
 	</table>	
 
-	<a href="{{baseUrl}}/edit">Edit</a>
 </div>
 <div ng-show="!exam_schemas.length">
  	<div ng-include="'exam_schema.html'"></div>
 </div>
+<div ng-include="slot_template"></div>
+<script type="text/ng-template" id="show_slots.html">
+	<table>
+		<tr ng-repeat="slot in slots"><td>{{slot.name}}</td><td>{{slot.start_time}}</td></tr>
+	</table>
+	<div ng-show="!slots.length">No slots are added yet</div>
+	<button class="btn btn-primary" ng-click="load_slot_add_form()">Add Slots</button>
+</script>
+<script type="text/ng-template" id="add_slot_form.html">
+	Name:<input type="text" ng-model="newSlot.name" /><br />
+	Timing:<input type="time" ng-model="newSlot.start_time" />
+	<button ng-click="submit_slot_form(newSlot)">Save</button>
+	<button ng-click="close_slot_add_form()">Cancel</button>
+</script>

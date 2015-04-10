@@ -1,21 +1,18 @@
 <script type="text/ng-template" id="exam_schema.html">
-<table class="table">
-	<th>Subject</th>
-	<th>Id</th>
-	<th>Date</th>
-	<th>Slot</th>
-	<th>Duration</th>
-	<tr ng-repeat="a in exam_subjects">
-		<td ng-model="examSchema[a].name">{{a.name}}</td>
-		<td ng-model="examSchema[a].subject_id">{{a.id}}</td>
-		<td ><input type="text" ng-model="examSchema[a].date" ng-click="selectDate(a)"></td>
-		<td><input type="text" ng-model="examSchema[a].slot"></td>
-		<td><input type="number" ng-model="examSchema[a].duration"></td>
-	</tr>
-</table>
-<div>
-	<button class="btn btn-default" ng-click="saveSchema(examSchema)">Save</button>
-	<button class="btn btn-danger" ng-click="cancelSchema()">Cancel</button>
-</div>
+	hi<table class="table">
+		<th>Date</th>
+		<th>Subject</th>
+		<th>Slot</th>
+		<th>Duration</th>
+		<tr ng-repeat="a in exam_subjects" ng-mouseover="">
+			<td><input type="text" ng-model="a.exam_date" ng-click="selectDate(a,$index)"></td>
+			<td>{{a.name}}</td>
+			<td><select ng-options="slot.id as slot.name for slot in slots" ng-model="a.slot_id"></td>
+			<td><input type="select" ng-model="a.duration"required></td>
+		</tr>
+	</table>
+	<div>
+		<button class="btn btn-default" ng-click="saveExam()">Save</button>
+	</div>
 </script>
 

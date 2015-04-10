@@ -19,7 +19,20 @@
 <div ng-show="tab===2 && main===2">Course</div>
 <div ng-show="tab===3 && main===3">Teacher</div>
 <div ng-show="tab===4 && main===4">Notice</div>
-<div ng-show="tab===5 && main===5">Student</div>
+<div ng-show="tab===5">
+	<div class="navbar navbar-default">
+	<div class="container">
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a ng-href="#/schools/student/add">Add</a></li>
+				<li><a ng-href="#/schools/student/view">View</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+
+</div>
 <div ng-show="tab===6 && main===6">
 <div class="navbar navbar-default">
 	<div class="container">
@@ -28,6 +41,7 @@
 				<li class="active"><a ng-href="#/{{currentUrl}}/classroomHome">Schedule</a></li>
 				<li><a href>Add Marks</a></li>
 				<li><a href>Generate Report Card</a></li>
+				<li><a href="">Slot</a></li>
 			</ul>
 		</div>
 	</div>

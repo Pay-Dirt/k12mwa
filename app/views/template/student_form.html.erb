@@ -1,0 +1,47 @@
+<form name="studentForm" ng-submit="addstudent(newstudent) && studentForm.$valid" novalidate>
+<label for="Student's Name">Student's Name</label>
+<div>
+<input name="name" type = "text" ng-disabled = "{{nameDisabled}}" placeholder = "Enter student's name" ng-model="newStudent.name" ng-pattern="/^[A-Za-z]+$/" ng-maxlength=5 required><br/>
+<span ng-show="studentForm.name.$dirty && studentForm.name.$error.required">Field cannot be blank</span>
+<span ng-show="studentForm.name.$dirty && studentForm.name.$error.pattern">pattern doesnt match</span>
+<span ng-show="studentForm.name.$dirty && studentForm.name.$error.maxlength">Range exceedded</span>
+</div>
+
+
+<label for="Father's Name">Father's Name</label>
+<div>
+<input name="fathers_name"type = "text" ng-disabled = "{{fathers_nameDisabled}}" placeholder = "Enter Father's name" ng-model="newstudent.fathers_name" ng-pattern="/^[A-Za-z]+$/" required><br/>
+<span ng-show="studentForm.fathers_name.$dirty && studentForm.fathers_name.$error.required">Field cannot be blank</span>
+<span ng-show="studentForm.fathers_name.$dirty && studentForm.fathers_name.$error.pattern">pattern doesnt match</span>
+<span ng-show="studentForm.fathers_name.$dirty && studentForm.fathers_name.$error.maxlength">Range exceedded</span>
+</div>
+
+
+<label for="Contact">Contact</label>
+<div>
+<input name="contact" type = "text" ng-disabled = "{{contactDisabled}}"placeholder = "Enter your mobile number" ng-model="newstudent.contact" ng-pattern="/^[0-9]+$/" ng-minlength=3 ng-maxlength=10 required><br/>
+<span ng-show="studentForm.contact.$dirty && studentForm.contact.$error.required">Field cannot be blank</span>
+<span ng-show="studentForm.contact.$dirty && studentForm.contact.$error.pattern">pattern doesnt match</span>
+<span ng-show="(studentForm.contact.$error.maxlength || studentForm.contact.$error.minlength) && studentForm.contact.$dirty ">Enter  a 10 digit number</span>
+</div>
+
+<label for="Classroom">Classroom</label>
+<div>
+	<select ng-options="classroom as classroom.classroom_number for classroom in classrooms" ng-model="classroom"></select>
+</div>
+
+<label for="Course">Course</label>
+<div>
+	<select ng-options="course as course.name for course in courses" ng-model="course"></select>
+</div>
+
+<label for="Section">Section</label>
+<div>
+	<select ng-options="sect" ng-model="section"></select>
+</div>
+<input type="submit"  value ="{{bFunction}}" >
+<!--<div ng-hide="isLoadingComplete">fhfh</div>-->
+<a href='#/student'>Back</a>
+
+
+</form>
