@@ -13,8 +13,6 @@ angular.module('schoolApp').controller('classroomModalInstanceCtrl',['$scope','$
 	
 	
   $scope.ok = function () {
-	  console.log($scope.classroomToDelete.id);
-
 		Classroom.destroy({id:$scope.classroomToDelete.id},
 				function(data){
 			$rootScope.classrooms.splice($rootScope.classrooms.indexOf($scope.classroomToDelete),1);

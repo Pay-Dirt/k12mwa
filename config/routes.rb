@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :examinations do
     resources :exam_schemas
     resources :slots
-    resources :examination_results
+    resources :results
   end
 
   resources :attendances
@@ -51,6 +51,7 @@ get 'template/examination', to: 'template#examination'
 get 'template/selectedExam', to: 'template#selectedExam'
 get 'template/examinationSlot', to: 'template#examinationSlot'
 get 'template/student_form', to: 'template#student_form'
+get 'template/examinationMarks', to: 'template#examinationMarks'
 #custom template end here
 
 root 'schools#product'  

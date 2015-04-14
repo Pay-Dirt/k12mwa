@@ -7,6 +7,7 @@ Choose a classroom<select ng-options="classroom.id as classroom.classroom_number
 <calendar-event my-click="check(t,c)" classroom="classroom" startingmonth=1 startingyear=2015  ></calendar-event>
 </div>
 <div ng-show="exam_schemas.length">
+	
 	<table class="table">
 		<th>Subject</th>
 		<th>Date</th>
@@ -14,17 +15,26 @@ Choose a classroom<select ng-options="classroom.id as classroom.classroom_number
 		<th>Duration</th>
 		<tr ng-repeat="exam_schema in exam_schemas" ng-mouseover="editControl('true',exam_schema.id)" ng-mouseout="editControl('false',exam_schema.id)">
 			<td>
-				<div ng-hide="isEnableEdit[exam_schema.id]">{{exam_schema.exam_date}}</div>
-				<div ng-show="isEnableEdit[exam_schema.id]"><input type="text" ng-model="editExamSchema.id"/></div>
+				{{exam_schema.sub_subject_name}}
 			</td>
-			<td>{{exam_schema.exam_date}}</td>
-			<td>{{slotName[exam_schema.slot_id].name}}--{{slotName[exam_schema.slot_id].start_time}}</td>
-			<td>{{exam_schema.duration}}</td>
 			<td>
-				<div ng-show="isEditActive[exam_schema.id]"><a ng-click="enableEdit(exam_schema.id,$index)">Edit</a></div>
+				<div ng-hide="isEnableEdit[exam_schema.id]">{{exam_schema.exam_date}}</div>
+				<div ng-show="isEnableEdit[exam_schema.id]"><input type="text" ng-click="selectDate(a,$index)" ng-model="editExamSchema.data.exam_date"/></div>
+			</td>
+			<td>
+				<div ng-hide="isEnableEdit[exam_schema.id]">{{slotName[exam_schema.slot_id].name}}</div>
+				<div ng-show="isEnableEdit[exam_schema.id]"><select ng-options="slot.id as slot.name for slot in slots" ng-model="editExamSchema.data.slot_id"/></div>
+			</td>
+			<td>
+				<div ng-hide="isEnableEdit[exam_schema.id]">{{exam_schema.duration}}</div>
+				<div ng-show="isEnableEdit[exam_schema.id]"><input type="text"  ng-model="editExamSchema.data.duration"/></div>
+				
+			</td>
+			<td>
+				<div ng-show="isEditActive[exam_schema.id] && !isEnableEdit[exam_schema.id]"><a ng-click="enableEdit(exam_schema.id,$index)">Edit</a></div>
 				<div ng-show="isEnableEdit[exam_schema.id]">
-					<button class="btn btn-default" ng-click="update(exam_schema)">Update</button>
-					<button class="btn btn-danger" ng-clcik="cancel()">Cancel</button>
+					<button class="btn btn-default" ng-click="update_edit_form(editExamSchema)">Update</button>
+					<button class="btn btn-danger"  ng-click="close_edit_form(editExamSchema.id)">Cancel</button>
 				</div>
 			</td>
 		</tr>

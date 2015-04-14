@@ -1,3 +1,3 @@
 angular.module('schoolApp').factory('ExaminationExaminationMarks',['Resource',function(Resource){
-	return Resource.create('examinations/:examinationId/examination_results/:id');
+	return Resource.create('examinations/:examinationId/results/:id');
 }]);

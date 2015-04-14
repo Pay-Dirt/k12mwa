@@ -77,6 +77,10 @@ schoolApp.config(['$routeProvider',function($routeProvider){
 		templateUrl:'',
 		controller:'studentCtrl'
 	})
+	.when('/schools/examination/:examinationId/marks',{
+		templateUrl:'template/examinationMarks',
+		controller:'examinationMarksCtrl'
+	})
 
 	.otherwise({redirectTo: '/checklogin'});
 }]);

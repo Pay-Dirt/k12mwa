@@ -1,6 +1,6 @@
 //Created by Akash
-var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',['$scope','$http','$rootScope','Classroom','Section','ClassroomSections','DefaultClassrooms','Notification','Auth','Error',
-		 function($scope,$http,$rootScope,Classroom,Section,ClassroomSections,DefaultClassrooms,Notification,Auth,Error){
+var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',['$scope','$http','$rootScope','Classroom','Section','ClassroomSections','DefaultClassrooms','Notification','Auth','Error','$routeParams',
+		 function($scope,$http,$rootScope,Classroom,Section,ClassroomSections,DefaultClassrooms,Notification,Auth,Error,$routeParams){
 	
 	$rootScope.main=0;
 	$rootScope.tab=1;
@@ -70,5 +70,5 @@ var classroomCtrl = angular.module('schoolApp').controller('classroomCtrl',['$sc
 	};
 	
 	//faltu function declared here
-	
+
 }]);

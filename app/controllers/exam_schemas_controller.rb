@@ -2,7 +2,8 @@ class ExamSchemasController < ApplicationController
   before_action :check_authentication
   before_action :set_school
   before_action :set_examination
-  before_action :set_exam_schema, only: [:update,:destroy]
+  before_action :exam_schema_update_params, only: [:update]
+  before_action :set_exam_schema, only: [:destroy,:update]
   before_action :exam_schema_params, only: [:create]
   before_action :set_classroom, only: [:show,:create]
   
@@ -38,8 +39,8 @@ class ExamSchemasController < ApplicationController
   end
   
   def update
-    if @exam_schema.update(exam_schema_params)
-      render json: {}
+    if @exam_schema.update(exam_schema_update_params)
+      render json: {success:{success:"yes",type:"success",display:"yes",message:"ok"},data:{exam_schema:@exam_schema}}  
     else
       render json: {}
     end
@@ -67,5 +68,9 @@ class ExamSchemasController < ApplicationController
   
   def exam_schema_params
     @exam_schema_params = params[:data]
+  end
+  
+  def exam_schema_update_params
+    params.require(:data).permit(:exam_date,:duration,:slot_id)
   end
 end

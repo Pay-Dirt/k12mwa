@@ -23,7 +23,6 @@ schoolApp.controller('selectedExamCtrl',
 				 $routeParams,
 				 Notification){
 	$rootScope.main=6;
-	
 	$scope.check =function(m,k)
 	{
 		if(k==true)
@@ -33,7 +32,11 @@ schoolApp.controller('selectedExamCtrl',
 		else if(k==false)
 		{
 	 		$scope.showCalendar=false;
-			$scope.exam_subjects[$scope.dateIndex].exam_date=m.toString().substring(0,15);
+	 		$scope.exam_subjects[$scope.dateIndex].exam_date=m.toString().substring(0,15);
+	 		if($scope.isEnableEdit[$scope.id_of_edit]==true){
+			$scope.editExamSchema.data.exam_date=m.toString().substring(0,15);
+	 		console.log("jnfkdn");
+	 		}
 		}
 	};
 	//this will request a new classroom data like subjects when the classroom selected changes
@@ -83,7 +86,6 @@ schoolApp.controller('selectedExamCtrl',
 		}
 	});
 
-
 	$scope.slotName=new Array();
 	var slot_map =function(){
 		for(x in $scope.slots){
@@ -93,7 +95,6 @@ schoolApp.controller('selectedExamCtrl',
 	//javascript mapping
 	//array=json.map(function(item){return item.id});
 	$scope.saveExam=function(){
-		//console.log($scope.exam_subjects);
 		var data = new Object();
 		data.data = angular.copy($scope.exam_subjects);
 		data.classroom_id = $scope.classroom;
@@ -104,10 +105,7 @@ schoolApp.controller('selectedExamCtrl',
         	});
         },function(data){$scope.error=data;});
 	};
-	
 	//slot code start here
-	
-	
 	$scope.loadSlots = function(){
 		ExaminationSlots.all({examinationId:$routeParams.examinationId},function(data){
 			Error.parse(data,function(data){
@@ -133,22 +131,40 @@ schoolApp.controller('selectedExamCtrl',
 	$scope.loadSlots();
 	$scope.slot_template = "show_slots.html";
 	//slot code end here
+	
 	//edit code starts here
 	$scope.isEditActive=new Array();
 	$scope.isEnableEdit=new Array();
 	$scope.editControl=function(x,id){
 		if(x=='true'){
-			console.log(id);
 			$scope.isEditActive[id]=true;
 		}
 		else if(x=='false'){
 			$scope.isEditActive[id]=false;
 		}
 	};
+	
+	$scope.close_edit_form = function(id){
+		$scope.isEnableEdit[id] = false;
+	};
+	
 	$scope.enableEdit=function(id,index){
+		$scope.id_of_edit=id;
 		$scope.isEnableEdit[id]=true;
 		$scope.isEditActive[id]=false;
 		$scope.editExamSchema=angular.copy($scope.exam_schemas[index]);
+		$scope.editExamSchema.index = index;
+		$scope.editExamSchema.data=angular.copy($scope.exam_schemas[index]);
+	};
+	$scope.update_edit_form=function(editedSchema){
+		ExaminationExamSchemas.update({examinationId:$routeParams.examinationId,id:editedSchema.id},editedSchema,function(data){
+			Error.parse(data,function(data){
+				var sub_name = $scope.exam_schemas[editedSchema.index].sub_subject_name;
+				data.exam_schema.sub_subject_name = sub_name;
+				$scope.exam_schemas[editedSchema.index] = data.exam_schema;
+				$scope.close_edit_form(data.exam_schema.id);
+			},function(data){});
+		},function(data){});
 	};
 	//edit code ends here
 }]);

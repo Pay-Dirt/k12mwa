@@ -1,0 +1,35 @@
+<div class="container">
+	<table>
+		<tr>
+			<td>Classroom:
+				<select ng-options="defaultClassroom.id as defaultClassroom.classroom_name for defaultClassroom in defaultClassrooms" ng-model="classroom">
+			</td>
+			<td>Section:
+				<select ng-options="classroomSection.id as classroomSection.section for classroomSection in classroomSections" ng-model="classroomSection">
+			</td>
+		</tr>
+	</table><br /><br />
+	<div ng-show="classroomSelected && sectionSelected">
+	<ul ng-repeat="exam_schema in exam_schemas">
+		<li><a href ng-click="fillMarks(exam_schema)">{{exam_schema.sub_subject_name}}</a></li>
+	</ul>
+	</div>
+	<div ng-show="isSubjectSelected">
+		<div ng-show="student_subject_result.length">
+			marks already added
+		</div>
+			<table class="table">
+				<th>Name</th>
+				<th>Obtained Marks</th>
+				<tr ng-repeat="availableStudent in availableStudents">
+					<td>{{availableStudent.name}}</td>
+					<td><input type="text" ng-model="availableStudent.marks"></td>
+				</tr>
+			<div>
+					<button class="btn btn-success" ng-click="saveExamSchemaMarks(availableStudents)">Save</button>
+					<button class="btn btn-danger"  ng-click="cancelExamSchemaMarks()">Cancel</button>	
+			</div>
+				
+			</table>
+	</div>
+</div>
