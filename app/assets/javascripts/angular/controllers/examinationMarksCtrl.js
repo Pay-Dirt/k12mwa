@@ -120,17 +120,14 @@ schoolApp.controller('examinationMarksCtrl',[
 		}
 	});
 		$scope.fillMarks=function(exam_schema){
-			console.log(exam_schema);
 //particular subject result starts
 			var querydata = {keys:"exam_schema_id",exam_schema_id:exam_schema.id};
 			ExaminationExaminationMarks.qfind({examinationId:$routeParams.examinationId},querydata,function(data){
 			Error.parse(data,function(data){
-				$scope.student_subject_result=data.result;
+				$scope.student_subject_results=data.result;
 			},function(data){});	
 			},function(data){});
 //particular subject ends
-			
-			
 			
 			$scope.selected_schema=exam_schema;
 			$scope.isSubjectSelected=true;
@@ -176,4 +173,39 @@ schoolApp.controller('examinationMarksCtrl',[
 		},function(data){});
 		}
 	};
+	
+//edit code starts here 
+	$scope.isEditActive=new Array();
+	$scope.isEnableEdit=new Array();
+	$scope.editControl=function(x,id){
+		if(x=='true'){
+			$scope.isEditActive[id]=true;
+		}
+		else if(x=='false'){
+			$scope.isEditActive[id]=false;
+		}
+	};
+	
+	$scope.close_edit_form = function(id){
+		$scope.isEnableEdit[id] = false;
+	};
+	
+	$scope.enableEdit=function(id,index){
+		$scope.id_of_edit=id;
+		$scope.isEnableEdit[id]=true;
+		$scope.isEditActive[id]=false;
+		$scope.editStudent_subject_result=angular.copy($scope.student_subject_results[index]);
+		$scope.editStudent_subject_result.index = index;
+		//$scope.editStudent_subject_result.data=angular.copy($scope.student_subject_results[index]);
+	};
+	$scope.update_edit_form=function(editedStudent){
+		
+		ExaminationExaminationMarks.update({examinationId:$routeParams.examinationId,id:editedStudent.id},editedStudent,function(data){
+			$scope.close_edit_form(editedStudent.id);
+			$scope.student_subject_results[editedStudent.index] = data.data.result;
+		},function(data){});
+		
+	};
+
+//edit code ends here	
 }]);

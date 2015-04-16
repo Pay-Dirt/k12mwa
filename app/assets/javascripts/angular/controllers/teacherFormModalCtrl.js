@@ -5,14 +5,11 @@ schoolApp.controller('teacherFormModalCtrl',['$scope','$modal',function($scope,$
 	$scope.open = function(){
 		var modalIns = $modal.open({
 			templateUrl: 'teacher_form.html',
-			controller: 'teacherFormModalInstanceCtrl',
+			controller :'teacherFormModalInstanceCtrl',
 			backdrop: true,
 			
 		});
-		
-
 	};
-	
 }]);
 
 schoolApp.controller('teacherFormModalInstanceCtrl',['$scope','$modalInstance',function($scope,$modalInstance){

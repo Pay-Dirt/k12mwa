@@ -1,5 +1,5 @@
 var module=angular.module('schoolApp');
-module.directive('calendarEvent',function(){
+module.directive('calendarEvent',['yyyymmdd', function(yyyymmdd){
 	return{
 		
 		restrict:'E',
@@ -14,7 +14,9 @@ module.directive('calendarEvent',function(){
 		templateUrl:'calendar.html',
 		controller:function($scope,$rootScope,ExaminationExamSchemas,Holiday,$routeParams,Error){
 			$scope.$watch('classroom',function(){
-			if($scope.classroom!=undefined){	
+			if($scope.classroom!=undefined){
+
+				
 				$scope.classroomDefined=true;
 				
 				//this part handles the calendar functionality
@@ -46,7 +48,7 @@ module.directive('calendarEvent',function(){
 										$scope.isDatePassed=true;
 										return true;
 										}
-									else {
+									else if(t>=$scope.cd) {
 										$scope.isDatePassed=false;
 										return false;
 										}
@@ -117,7 +119,7 @@ module.directive('calendarEvent',function(){
 					}
 				
 				$scope.date=new Date($scope.date);
-				console.log($scope.date);
+			
 			};
 			$scope.checkSunday=function(t)
 			{
@@ -125,23 +127,19 @@ module.directive('calendarEvent',function(){
 				return true;
 			};
 			$scope.tooltipDisplay=function(t){
+				
 			var today=angular.copy($scope.date);
 			today.setDate(t);
-			//today.setMinutes(0);
-			//today.setHours(0);
-			//today.setSeconds(0);
 			$scope.eventDate=(new Date(today));
-			$scope.eventDateInString=(new Date(today)).toISOString().substring(0, 10);
-			
-//			$scope.eventDate=new Date(today.setDate(t));
+			$scope.eventDateInString=yyyymmdd.getData($scope.eventDate);
 			var eventName="";
 			if($scope.checkEvent(t)==true)
-			{
-				for(a in $scope.exam_schemas)
-					{
-						if((new Date($scope.exam_schemas[a].exam_date)).toISOString().substring(0, 10)==$scope.eventDateInString)
+			{	for(a in $scope.exam_schemas)
+					{	
+						$schema_date=$scope.exam_schemas[a].exam_date;
+						if($schema_date==$scope.eventDateInString)
 							{
-								eventName+=$scope.exam_schemas[a].main_subject_id;
+								eventName+=$scope.exam_schemas[a].sub_subject_name;
 							}
 					}
 			}
@@ -158,7 +156,7 @@ module.directive('calendarEvent',function(){
      $scope.eventName=eventName;
 		};
 
-			var firstday=function(d)
+		var firstday=function(d)
 			{
 				return d.getDay();
 			};
@@ -220,4 +218,6 @@ module.directive('calendarEvent',function(){
 		}//end of controller
 		};//end of return
 var classroom=$scope.classroom;
-});
+
+
+}]);

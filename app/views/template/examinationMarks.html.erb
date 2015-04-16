@@ -1,3 +1,4 @@
+<%= render 'template/examination_marks'%>
 <div class="container">
 	<table>
 		<tr>
@@ -15,21 +16,32 @@
 	</ul>
 	</div>
 	<div ng-show="isSubjectSelected">
-		<div ng-show="student_subject_result.length">
-			marks already added
-		</div>
+		<div ng-show="student_subject_results.length">
 			<table class="table">
 				<th>Name</th>
 				<th>Obtained Marks</th>
-				<tr ng-repeat="availableStudent in availableStudents">
-					<td>{{availableStudent.name}}</td>
-					<td><input type="text" ng-model="availableStudent.marks"></td>
+				<tr ng-repeat="student_subject_result in student_subject_results" ng-mouseover="editControl('true',student_subject_result.id)" ng-mouseout="editControl('false',student_subject_result.id)">
+					<td>{{student_subject_result.id}}</td>
+					<td>
+						<!--<input type="text" ng-model="availableStudent.marks">-->
+						<div ng-hide="isEnableEdit[student_subject_result.id]">{{student_subject_result.obtained_marks}}</div>
+						<div ng-show="isEnableEdit[student_subject_result.id]"><input type="text" ng-model="editStudent_subject_result.obtained_marks"/></div>
+					</td>
+			<td>
+				<div ng-show="isEditActive[student_subject_result.id] && !isEnableEdit[student_subject_result.id]"><a ng-click="enableEdit(student_subject_result.id,$index)">Edit</a></div>
+				<div ng-show="isEnableEdit[student_subject_result.id]">
+					<button class="btn btn-default" ng-click="update_edit_form(editStudent_subject_result)">Update</button>
+					<button class="btn btn-danger"  ng-click="close_edit_form(editStudent_subject_results.id)">Cancel</button>
+				</div>
+			</td>
+					
 				</tr>
-			<div>
-					<button class="btn btn-success" ng-click="saveExamSchemaMarks(availableStudents)">Save</button>
-					<button class="btn btn-danger"  ng-click="cancelExamSchemaMarks()">Cancel</button>	
-			</div>
-				
 			</table>
+
+			</div>
+		<div ng-show="!student_subject_result.length">
+			 <div ng-include="'examination_marks.html'"></div>
+		</div>
+			
 	</div>
 </div>

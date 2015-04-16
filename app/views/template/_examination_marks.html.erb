@@ -1,0 +1,15 @@
+<script type="text/ng-template" id="examination_marks.html">
+			<table class="table">
+				<th>Name</th>
+				<th>Obtained Marks</th>
+				<tr ng-repeat="availableStudent in availableStudents">
+					<td>{{availableStudent.name}}</td>
+					<td><input type="text" ng-model="availableStudent.marks"></td>
+				</tr>
+			</table>
+
+			<div>
+					<button class="btn btn-success" ng-click="saveExamSchemaMarks(availableStudents)">Save</button>
+					<button class="btn btn-danger"  ng-click="cancelExamSchemaMarks()">Cancel</button>	
+			</div>
+</script>

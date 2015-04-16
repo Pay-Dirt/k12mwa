@@ -2,6 +2,7 @@ class ResultsController < ApplicationController
   before_action :check_authentication
   before_action :set_school
   before_action :set_exam_schema
+  before_action :set_result, only: [:show,:update]
   
   def index
     @result=@exam_schema.results
@@ -22,6 +23,14 @@ class ResultsController < ApplicationController
     end
   end
   
+  def update
+    if @result.update(result_params)
+      render json: {success:{success:"yes",type:"success",display:"yes",message:"marks successfully changed"},data:{result:@result}}
+    else
+      render json: {success:{success:"yes",type:"error",display:"yes",message:"try later"},data:{}}
+    end
+  end
+  
   
   private
   
@@ -35,6 +44,10 @@ class ResultsController < ApplicationController
   
   def result_params
     params.require(:result).permit(:obtained_marks)
+  end
+  
+  def set_result
+    @result = @exam_schema.results.find(params[:id])
   end
   
 end

@@ -11,6 +11,7 @@ schoolApp.controller('selectedExamCtrl',
 		 'Examination',
 		 '$routeParams',
 		 'Notification',
+		 'yyyymmdd',
 		 function($scope,
 				 Classroom,
 				 Error,
@@ -21,10 +22,12 @@ schoolApp.controller('selectedExamCtrl',
 				 ExaminationSlots,
 				 Examination,
 				 $routeParams,
-				 Notification){
+				 Notification,
+				 yyyymmdd){
 	$rootScope.main=6;
 	$scope.check =function(m,k)
 	{
+		console.log(m+k);
 		if(k==true)
 			{
 			Notification.error({message:"Choose different date",delay:4000});
@@ -32,10 +35,9 @@ schoolApp.controller('selectedExamCtrl',
 		else if(k==false)
 		{
 	 		$scope.showCalendar=false;
-	 		$scope.exam_subjects[$scope.dateIndex].exam_date=m.toString().substring(0,15);
+	 		$scope.exam_subjects[$scope.dateIndex].exam_date=yyyymmdd.getData(m);
 	 		if($scope.isEnableEdit[$scope.id_of_edit]==true){
-			$scope.editExamSchema.data.exam_date=m.toString().substring(0,15);
-	 		console.log("jnfkdn");
+			$scope.editExamSchema.data.exam_date=yyyymmdd.getData(m);
 	 		}
 		}
 	};
